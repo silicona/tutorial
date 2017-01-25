@@ -1,7 +1,7 @@
 class PaginasEstaticasController < ApplicationController
-  def Inicio
+  def inicio
   end
 
-  def Ayuda
+  def ayuda
   end
 end
