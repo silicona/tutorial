@@ -1,2 +1,40 @@
-<h1>PaginasEstaticas#ayuda</h1>
-<p>Find me in app/views/paginas_estaticas/ayuda.html.erb</p>
+<% provide(:titulo, "Ayuda") %>
+
+<h1>3 Paginas Estaticas # Ayuda</h1>
+  
+<p>
+  Si buscas ayuda, habla con una persona profesional. No estoy aquí para resolver tus dudas acerca de si mezclar sacarina con sacarosa.
+</p>
+
+<p>
+  Si realmente buscas ayuda en esta página, reza <%= link_to("aquí", "http://sd.keepcalm-o-matic.co.uk/i/keep-calm-and-pray-cthulhu-2.png", target: "_blank") %>
+</p>
+
+<!-- Limpiado por reinclusion de application.html.erb debido a tests
+  en test/controllers/paginas_estaticas_controller_test.rb
+
+<!DOCTYPE html>
+<html>
+  <head>
+  	<meta charset="utf-8">
+    <title><%# yield(:titulo) %> | Tutorial Rails</title>
+  </head>
+  <body>
+    <h1>3 Paginas Estaticas # Ayuda</h1>
+			
+    <p>
+    	Si buscas ayuda, habla con una persona profesional. No estoy aquí para resolver tus dudas acerca de si mezclar sacarina con sacarosa.
+    </p>
+
+    <p>
+    	Si realmente buscas ayuda en esta página, reza <%# link_to("aquí", "http://sd.keepcalm-o-matic.co.uk/i/keep-calm-and-pray-cthulhu-2.png", target: "_blank") %>
+    </p>
+
+  </body>
+</html>
+
+-->
+
+
+
+
