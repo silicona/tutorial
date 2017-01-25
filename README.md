@@ -37,5 +37,9 @@ If the test suite passes, you'll be ready to run the app in a local server:
 $ rails server
 ```
 
+Heroku Advise:
+Since I have a trouble with new heroku toolbelt, fuck off Heroku.
+By now, at least.
+
 For more information, see the
 [*Ruby on Rails Tutorial* book](http://www.railstutorial.org/book).
