@@ -15,7 +15,8 @@
     <% @publicaciones.each do |publicacion| %>
       <tr>
         <td><%= publicacion.contenido %></td>
-        <td><%= publicacion.usuario_id %></td>
+        <td><%= publicacion.usuario_id %>
+        <%# publicacion.usuario.nombre %></td>
         <td><%= link_to 'Show', publicacion %></td>
         <td><%= link_to 'Edit', edit_publicacion_path(publicacion) %></td>
         <td><%= link_to 'Destroy', publicacion, method: :delete, data: { confirm: 'Are you sure?' } %></td>
