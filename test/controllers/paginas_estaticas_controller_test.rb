@@ -1,13 +1,13 @@
 require 'test_helper'
 
-class PaginaEstaticaControllerTest < ActionDispatch::IntegrationTest
+class PaginasEstaticasControllerTest < ActionDispatch::IntegrationTest
   test "should get Inicio" do
-    get pagina_estatica_Inicio_url
+    get paginas_estaticas_Inicio_url
     assert_response :success
   end
 
   test "should get Ayuda" do
-    get pagina_estatica_Ayuda_url
+    get paginas_estaticas_Ayuda_url
     assert_response :success
   end
 

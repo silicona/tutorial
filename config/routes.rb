@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
-  get 'pagina_estatica/Inicio'
+  get 'paginas_estaticas/Inicio'
 
-  get 'pagina_estatica/Ayuda'
+  get 'paginas_estaticas/Ayuda'
 
   resources :publicaciones
   resources :usuarios
