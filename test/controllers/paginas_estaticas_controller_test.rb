@@ -39,7 +39,7 @@ class PaginasEstaticasControllerTest < ActionDispatch::IntegrationTest
     # @tutorial factoriza parte de <title>
     # Se usa este assert para el proceso de refactorizacion de
     # application.html.erb y las vistas
-    assert_select "title", "Inicio | #{@tutorial}"
+    assert_select "title", "#{@tutorial}"
   end
 
   test "should get Ayuda" do

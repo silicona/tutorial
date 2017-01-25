@@ -1,9 +1,20 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title><%= yield(:titulo) %> | Tutorial Rails</title>
+
+  	<title><%= titulo_completo(yield(:titulo)) %></title>
+
+    <!-- Anulado para utilizar el ayudante titulo_completo,
+    	desde app/helpers/application_helper.rb
+    <title><%# yield(:titulo) %> | Tutorial Rails</title>
+    -->
+
     <%= csrf_meta_tags %>
 
+    <!-- 
+			stylesheet_link_tag es el vinculo ruby para llamar a los CSS.
+			Tiene un argumento String y dos hashes; como los hashes están al final, no es necesario {}.
+     -->
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
