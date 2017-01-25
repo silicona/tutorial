@@ -4,6 +4,9 @@ require 'rails/test_help'
 
 # Informe de minitest a colores
 # Informe de barra de progreso, media info.
+# Minitest::Reporters configurado en test/test_helper.rb
+# github de la gema Minitest-reporters
+# 	https://github.com/kern/minitest-reporters
 require "minitest/reporters"
 Minitest::Reporters.use!
 

@@ -1,5 +1,12 @@
 require 'test_helper'
 
+# web de assertions de minitest
+# http://guides.rubyonrails.org/testing.html#available-assertions
+
+# Minitest::Reporters configurado en test/test_helper.rb
+# github de la gema Minitest-reporters
+# 	https://github.com/kern/minitest-reporters
+
 class PaginasEstaticasControllerTest < ActionDispatch::IntegrationTest
   
   # Se crea setup para factorizar parte de <title>
