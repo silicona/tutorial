@@ -18,9 +18,6 @@ Rails.application.routes.draw do
   get '/registro', to: 'usuarios#new'
   # Anulado por get '/registro'
   # get 'usuarios/new'
-
-  resources :publicaciones
-  #resources :usuarios
   
   root 'paginas_estaticas#inicio'
   # root original del tutorial

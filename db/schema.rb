@@ -10,20 +10,6 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170124103403) do
-
-  create_table "publicaciones", force: :cascade do |t|
-    t.text     "contenido"
-    t.integer  "usuario_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "usuarios", force: :cascade do |t|
-    t.string   "nombre"
-    t.string   "email"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
+ActiveRecord::Schema.define(version: 0) do
 
 end

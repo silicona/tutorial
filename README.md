@@ -1,9 +1,22 @@
 # Tutorial Ruby on Rails
 
-This is the fully application for
-[*Ruby on Rails Tutorial:
-Learn Web Development with Rails*](http://www.railstutorial.org/)
-by [Michael Hartl](http://www.michaelhartl.com/).
+Se ha realizado una limpieza de los scaffolders creados por el segundo capitulo, para que los pasos explicados en los capitulos subsiguientes sean claros.
+
+Para la limpieza se ha procedido asi:
+
+	git checkout -b 5_limpieza_6
+	rake db:rollback (dos veces, para las dos tablas de usuarios y Publicaciones)
+	rails destroy scaffold Usuarios (y Publicaciones despues)
+	rails g controller Usuarios new (del capitulo 5) y su unico test.
+	git add .
+	git commit -m "tutorial limpio"
+	git checkout master
+	git merge 5_limpieza_6
+	git push
+
+Estaes la aplicacion completa y personalizada del
+[*Tutorial Rails*](http://www.railstutorial.org/)
+escrito por mi, bajo la inspiracion de [Michael Hartl](http://www.michaelhartl.com/).
 
 ## License
 
