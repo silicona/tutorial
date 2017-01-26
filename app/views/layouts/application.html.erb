@@ -9,18 +9,38 @@
     <title><%# yield(:titulo) %> | Tutorial Rails</title>
     -->
 
-    <%= csrf_meta_tags %>
+    <!-- Capitulo 5.1.4 Parciales
+      Codigo del render en app/views/layouts/*.html.erb
+      Notese el guion bajo del nombre de los archivos parciales.
+      -->
 
-    <!-- 
-			stylesheet_link_tag es el vinculo ruby para llamar a los CSS.
-			Tiene un argumento String y dos hashes; como los hashes están al final, no es necesario {}.
-     -->
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <!-- Parcial de las meta tags de Rails -->
+    <%= render 'layouts/rails_defaults' %>
+
+    <!-- Parcial del HTML5 shim. Mas info, en el archivo -->
+    <%= render 'layouts/shim' %>
+
   </head>
 
   <body>
 
-    <%= yield %>
+    <!-- Capitulo 5 -->
+
+    <!-- Header - Cabecera -->
+    <%= render 'layouts/cabecera' %>
+    <!-- Fin de Cabecera -->
+
+    <!-- Contenedor -->
+    <div class="container">
+    
+      <%= yield %>
+
+      <!-- Footer - Pie de página -->
+      <%= render 'layouts/pie_pagina' %>
+      <!-- Fin de Pie de página -->
+    
+    </div>
+    <!-- Fin de contenedor -->
+
   </body>
 </html>

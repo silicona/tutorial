@@ -15,5 +15,8 @@ class ActiveSupport::TestCase
   # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
   fixtures :all
 
+  # Probar los ayudantes en app/helpers/applicacion_helper.rb
+  include ApplicationHelper
+
   # Add more helper methods to be used by all tests here...
 end

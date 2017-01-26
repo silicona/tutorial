@@ -16,15 +16,17 @@ class PaginasEstaticasControllerTest < ActionDispatch::IntegrationTest
 
   # Test de root
   test "El root debería ir a Inicio" do
-  	get '/'
-  	assert_response 200, 'paginas_estaticas/inicio'
+  	get root_path
+  	assert_response 200, '/'
+    # Mismo efecto
+    #assert_response 200, 'paginas_estaticas/inicio'
   end
 
 	# Comprueban la peticion GET de acceso a la pagina
 	# 	mediante URL:
   test "should get Inicio" do
-    get paginas_estaticas_inicio_url
-
+    #get paginas_estaticas_inicio_url
+    get '/'
     # success es la representacion del codigo HTML devuelto:
     # En este caso, 200 OK
   	# 1xx Informational
@@ -43,8 +45,17 @@ class PaginasEstaticasControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should get Ayuda" do
-    get paginas_estaticas_ayuda_url
+    # En routes: get 'paginas_estaticas/ayuda'
+    # get paginas_estaticas_ayuda_url
+
+    # En routes: get '/ayuda', to: 'paginas_estaticas#ayuda'
+    get ayuda_path
     assert_response :success
+    assert_response 200, '/ayuda'
+
+
+    get ayuda_url
+    assert_response 200, 'http://localhost:3000/ayuda'
 
     # Assert de selector
     # @tutorial factoriza parte de <title>
@@ -54,7 +65,8 @@ class PaginasEstaticasControllerTest < ActionDispatch::IntegrationTest
 
   # test Rojo
   test "debería obtener GET Acerca de nosotras" do
-  	get paginas_estaticas_acerca_de_nosotras_url
+  	# get paginas_estaticas_acerca_de_nosotras_url
+    get acerca_path
   	assert_response :success
 
   	# Assert de selector
@@ -63,7 +75,7 @@ class PaginasEstaticasControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "debería obtener GET Contacto" do
-  	get paginas_estaticas_contacto_url
+  	get contacto_url
   	assert_response :success
 
   	assert_select "title", "Contacto | #{@tutorial}"
