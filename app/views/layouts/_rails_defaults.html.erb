@@ -1,0 +1,12 @@
+<!-- Parcial con las meta_tags por defecto de rails
+	desde application.html.erb
+ -->
+
+<%= csrf_meta_tags %>
+
+<!-- 
+	stylesheet_link_tag es el vinculo ruby para llamar a los CSS.
+	Tiene un argumento String y dos hashes; como los hashes están al final, no es necesario {}.
+ -->
+<%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+<%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>

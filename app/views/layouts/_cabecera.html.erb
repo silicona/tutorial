@@ -1,0 +1,31 @@
+<!-- Parcial de application.html.erb -->
+
+<!-- Header - Cabecera -->
+<!-- Etiquetas CSS class de Bootstrap -->
+<header class="navbar navbar-fixed-top navbar-inverse">
+
+  <!-- Contenedor de cabecera -->
+  <div class="container">
+
+    <!-- Logo -->
+    <%= link_to image_tag("Yog-Sothoth.jpg", alt: "Logo de aquí", size: "50x50"), root_path, id: "logo" %>
+    <%# el hover viene por container de bootstrap %>
+    
+    <%# link_to "Tutorial Rails", root_path, id: "logo" %>
+    <!-- Fin Logo -->
+
+    <!-- Navegacion -->
+    <nav>
+      <ul class="nav navbar-nav navbar-right">
+        <li><%= link_to "Inicio", root_path %></li>
+        <li><%= link_to "Ayuda", ayuda_path %></li>
+        <!-- Capitulo 5.4 - Registro de usuaria -->
+        <li><%= link_to "Registrarse", registro_path %></li>
+      </ul>
+    </nav>
+    <!-- Fin de navegacion -->
+
+  </div>
+  <!-- Fin de Contenedor de cabecera -->
+</header>
+<!-- Fin de Cabecera -->

@@ -1,0 +1,197 @@
+/* Capitulo 5 */
+
+@import "bootstrap-sprockets";
+@import "bootstrap";
+
+
+/* Universal */
+/* Explicaciones básicas de CSS y SCSS Bootstrap en 5.1.2 */
+/* Para probar los CSS, comentarlos... 
+		A la cuenta de la vieja, oiga. */
+// Cambio de CSS por SCSS de Sass
+
+// Ocultar las imagenes de la vista HTML 
+
+// img {	display: none; }
+
+/* Variables en Sass
+			$variable : valor;*/
+/* Variable de color */
+$gris_luminoso: #777;
+$gris_media_luz: #eaeaea;
+
+/*Variables Less de Bootstrap en:
+		http://getbootstrap.com/customize/#less-variables
+	Adaptacion de Less a Sass:
+		@ = $ (y ya está)*/
+
+body {
+  padding-top: 60px;
+}
+
+section {
+  overflow: auto;
+}
+
+textarea {
+  resize: vertical;
+}
+
+/* SCSS con Sass */
+.center {
+  text-align: center;
+	 h1 {
+  	margin-bottom: 10px;
+	}
+}
+
+/* CSS
+.center {
+  text-align: center;
+}
+
+.center h1 {
+  margin-bottom: 10px;
+}
+*/
+
+/* SCSS con Sass */
+.izquierda {
+	text-align:left;
+	h1 {
+		margin-bottom: 20px;
+	}
+}
+/* CSS
+.izquierda {
+	text-align:left;
+}
+
+.izquierda h1 {
+	margin-bottom: 20px;
+}
+*/
+
+/* Typography - Tipografía */
+
+h1, h2, h3, h4, h5, h6 {
+  line-height: 1;
+}
+
+h1 {
+  font-size: 3em;
+  letter-spacing: -2px;
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+h2 {
+  font-size: 1.2em;
+  letter-spacing: -1px;
+  margin-bottom: 30px;
+  text-align: center;
+  font-weight: normal;
+  color: $gris_luminoso;
+  /*color: #777;*/
+}
+
+p {
+  font-size: 1.1em;
+  line-height: 1.7em;
+}
+
+/* header */
+
+/* SCSS con Sass */
+#logo {
+  float: left;
+  margin-right: 10px;
+  font-size: 1.7em;
+  color: #fff;
+  text-transform: uppercase;
+  letter-spacing: -1px;
+  padding-top: 9px;
+  font-weight: bold;
+	&:hover {
+  	color: #fff;
+  	text-decoration: none;
+	}
+}
+
+/* CSS
+#logo {
+  float: left;
+  margin-right: 10px;
+  font-size: 1.7em;
+  color: #fff;
+  text-transform: uppercase;
+  letter-spacing: -1px;
+  padding-top: 9px;
+  font-weight: bold;
+}
+
+// hover - puntero sobre el elemento
+#logo:hover {
+  color: #fff;
+  text-decoration: none;
+}*/
+
+/* footer */
+
+/* SCSS con Sass */
+footer {
+  margin-top: 45px;
+  padding-top: 5px;
+  border-top: 1px solid $gris_media_luz;
+  color: $gris_luminoso;
+  /*color: #777;*/
+	a {
+  	color: $gray-darker;
+		&:hover {
+  		color: $gray;
+		}
+	}
+	small {
+  	float: left;
+	}
+
+	ul {
+  	float: right;
+  	list-style: none;
+		li {
+  		float: left;
+  		margin-left: 15px;
+		}
+	}
+}
+
+/* CSS
+footer {
+  margin-top: 45px;
+  padding-top: 5px;
+  border-top: 1px solid #eaeaea;
+  color: #777;
+}
+
+footer a {
+  color: #555;
+}
+
+footer a:hover {
+  color: #222;
+}
+
+footer small {
+  float: left;
+}
+
+footer ul {
+  float: right;
+  list-style: none;
+}
+
+footer ul li {
+  float: left;
+  margin-left: 15px;
+}
+*/

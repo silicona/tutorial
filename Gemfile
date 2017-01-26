@@ -9,6 +9,8 @@ end
 # Con bundle --without production
 
 gem 'rails',        '5.0.1'
+# Añadida en Capitulo 5, para lo obvio...
+gem 'bootstrap-sass',    '3.3.6'
 gem 'puma',         '3.4.0'
 gem 'sass-rails',   '5.0.6'
 gem 'uglifier',     '3.0.0'
