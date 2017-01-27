@@ -1,0 +1,14 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+# Capitulo 6.2
+# Al poner el indice en la columna email de la tabla usuarios,
+# los test fallan porque utilizan este archivo como ejemplos
+# Se anulan hasta el capitulo 8 para que no den errores en test.
+
+# one:
+#   nombre: MyString
+#   email: MyString
+
+# two:
+#   nombre: MyString
+#   email: MyString

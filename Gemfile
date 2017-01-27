@@ -9,6 +9,8 @@ end
 # Con bundle --without production
 
 gem 'rails',        '5.0.1'
+# Añadida en capitulo 6, para encriptar la password del usuario
+gem 'bcrypt',       '3.1.11'
 # Añadida en Capitulo 5, para lo obvio...
 gem 'bootstrap-sass',    '3.3.6'
 gem 'puma',         '3.4.0'

@@ -1,5 +1,9 @@
 # Tutorial Ruby on Rails
 
+Hay un archivo de expresiones regulares en el root, llamado Regexp.rb, desde el capitulo 6. supongo que ira creciendo.
+
+Ya sabes: no son todas las que hay ni están todas las que son, pero bueno... De nada.
+
 Se ha realizado una limpieza de los scaffolders creados por el segundo capitulo, para que los pasos explicados en los capitulos subsiguientes sean claros.
 
 Para la limpieza se ha procedido asi:
@@ -14,7 +18,7 @@ Para la limpieza se ha procedido asi:
 	git merge 5_limpieza_6
 	git push
 
-Estaes la aplicacion completa y personalizada del
+Esta es la aplicacion completa y personalizada del
 [*Tutorial Rails*](http://www.railstutorial.org/)
 escrito por mi, bajo la inspiracion de [Michael Hartl](http://www.michaelhartl.com/).
 
