@@ -37,7 +37,7 @@ class Usuario < ApplicationRecord
 
 	validates :password,
 		presence: true,
-		length: { minimum: 6, maximum: 15 },
+		length: { minimum: 5, maximum: 15 },
 		format: { with: Regex_password }
 
 	#validates :password_confirmation, presence: true

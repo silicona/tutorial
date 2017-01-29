@@ -18,6 +18,23 @@ Rails.application.routes.draw do
   get '/registro', to: 'usuarios#new'
   # Anulado por get '/registro'
   # get 'usuarios/new'
+
+  # Capitulo 7.2 - listado 7.26
+  # Añadiendo la ruta de registro para las peticiones post
+  # Para que get y post tengan url "/registro"
+  post '/registro', to: 'usuarios#create'
+  
+  # Capitulo 7
+  resources :usuarios
+# via $ rake routes
+# GET    /usuarios(.:format)    usuarios_path          usuarios#index
+# POST   /usuarios(.:format)                           usuarios#create
+# GET    /usuarios/new(.:for)   new_usuario_path       usuarios#new
+# GET    /usuarios/:id/edit(.:for) edit_usuario_path(usuario) usuarios#edit
+# GET    /usuarios/:id(.:for)   usuario_path(usuario)  usuarios#show
+# PATCH  /usuarios/:id(.:for)   usuario_path(usuario)  usuarios#update
+# PUT    /usuarios/:id(.:for)   usuario_path(usuario)  usuarios#update
+# DELETE /usuarios/:id(.:for)   usuario_path(usuario)  usuarios#destroy
   
   root 'paginas_estaticas#inicio'
   # root original del tutorial

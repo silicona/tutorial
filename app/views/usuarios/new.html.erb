@@ -1,3 +1,35 @@
 <% provide(:titulo, "Registrarse") %>
-<h1>Usuarios New</h1>
-<p>Find me in app/views/usuarios/new.html.erb</p>
+
+<!-- Capitulo 7.2 - formulario de registro -->
+<h1>Registrarse</h1>
+
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+  	<!-- 
+  		Rails dirige el submit de form_for hacia usuarios#create ( via post /usuarios) al identificar que @usuario es un objeto Usuario.new 
+  	-->
+    <%= form_for(@usuario, url: registro_path) do |f| %>
+
+    	<!-- 
+    		7.3 Mensajes de error en el registro
+    Aparecen al volver a la vista new tras fallar @usuario.save en usuarios#create 
+    	-->
+    	<%= render 'compartido/mensajes_de_error' %>
+
+    	<!-- Formulario de registro -->
+      <%= f.label :nombre %>
+      <%= f.text_field :nombre, class: 'form-control' %>
+
+      <%= f.label :email, "Dirección electrónica" %>
+      <%= f.email_field :email, class: 'form-control' %>
+
+      <%= f.label :password, "Contraseña" %>
+      <%= f.password_field :password, class: 'form-control' %>
+
+      <%= f.label :password_confirmation, "Confirma la contraseña" %>
+      <%= f.password_field :password_confirmation, class: 'form-control' %>
+
+      <%= f.submit "Crear mi cuenta", class: "btn btn-primary" %>
+    <% end %>
+  </div>
+</div>

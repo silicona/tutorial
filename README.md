@@ -1,5 +1,7 @@
 # Tutorial Ruby on Rails
 
+Se anula el archivo scaffolds.scss porque interfiere con el CSS del tutorial. Se renombra para que deje de ser efectivo y permanezca disponible.
+
 Hay un archivo de expresiones regulares en el root, llamado Regexp.rb, desde el capitulo 6. supongo que ira creciendo.
 
 Ya sabes: no son todas las que hay ni están todas las que son, pero bueno... De nada.
