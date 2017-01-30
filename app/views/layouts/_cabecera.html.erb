@@ -17,10 +17,36 @@
     <!-- Navegacion -->
     <nav>
       <ul class="nav navbar-nav navbar-right">
-        <li><%= link_to "Inicio", root_path %></li>
+        <!-- Gracias a metodo de SP -->
+        <li><%= enlace_a "Inicio", root_path %></li>
         <li><%= link_to "Ayuda", ayuda_path %></li>
-        <!-- Capitulo 5.4 - Registro de usuaria -->
-        <li><%= link_to "Registrarse", registro_path %></li>
+
+        <!-- Capitulo 8.2.3 - Links visibles a usuarias -->
+        <% if ha_accedido? %>
+          <li><%= link_to "Usuarios", "#" %></li>
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+              Cuenta <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu">
+              <li><%= enlace_a "Perfil", usuario_actual %></li>
+              <li><%= link_to "Configuración", "#" %></li>
+              <li class="divider"></li>
+              <li>
+                <%= link_to "Cerrar sesion", cerrar_path, method: "delete" %>
+              </li>
+            </ul>
+          </li>
+        <% else %>
+          <li><%= link_to "Acceder", acceder_path %></li>
+      
+          <!-- Capitulo 5.4 - Registro de usuaria -->
+          <!-- En 8.2.3 este enlace desaparece. Aqui no -->
+          <li><%= link_to "Registrarse", registro_path %></li>
+      
+        <% end %>
+        <!-- Fin 8.2.3 -->
+
       </ul>
     </nav>
     <!-- Fin de navegacion -->

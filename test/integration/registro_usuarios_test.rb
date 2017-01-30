@@ -108,6 +108,11 @@ class RegistroUsuariosTest < ActionDispatch::IntegrationTest
 		# Confirma que se renderiza la vista del usuario (show)
 		assert_template 'usuarios/show'
 
+		# list 8.28 - Verifica que el usuario ha accedido
+		# Metodo esta_identificada? en test/test_helper.rb con teoria
+		# Este metodo paralela la accion de ha_accedido? (de Sesioneshelper)
+		assert esta_identificada?
+
 	end
 
 	test "La pagina de la usuaria deberia mostrar esto" do

@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+
+
   # Anulado por gets hacia Controlador páginas_estáticas
   # get 'paginas_estaticas/inicio'
   # get 'paginas_estaticas/ayuda'
@@ -19,12 +21,23 @@ Rails.application.routes.draw do
   # Anulado por get '/registro'
   # get 'usuarios/new'
 
-  # Capitulo 7.2 - listado 7.26
+# Capitulo 7.2 - listado 7.26
   # Añadiendo la ruta de registro para las peticiones post
   # Para que get y post tengan url "/registro"
   post '/registro', to: 'usuarios#create'
+
+# Capitulo 8
+  # Controlador Sesiones
+  # Recurso Sesiones solo usa rutas nombradas
+
+  # Creado por Rails, anulado por Tutorial
+  #get 'sesiones/new'
+
+  get '/acceder', to: "sesiones#new"
+  post '/acceder', to: 'sesiones#create'
+  delete '/cerrar', to: 'sesiones#destroy'
   
-  # Capitulo 7
+# Capitulo 7
   resources :usuarios
 # via $ rake routes
 # GET    /usuarios(.:format)    usuarios_path          usuarios#index

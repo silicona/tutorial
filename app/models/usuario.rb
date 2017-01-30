@@ -17,7 +17,7 @@ class Usuario < ApplicationRecord
 	# Tutorial
 	#REGEX_VALIDACION_MAIL = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
 
-	# No deja dos puntos seguidos enel dominio
+	# No deja dos puntos seguidos en el dominio
 	REGEX_VALIDACION_MAIL = /\A[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,3})\z/i
 
 	validates :email, 
@@ -40,6 +40,18 @@ class Usuario < ApplicationRecord
 		length: { minimum: 5, maximum: 15 },
 		format: { with: Regex_password }
 
-	#validates :password_confirmation, presence: true
 
+	# Capitulo 8.4 - Test de log in - Acceder
+	# Adaptacion de fixtures.yml para acceso_usuario_test.rb
+	# El codigo necesario es:
+	# 	BCrypt::Password.create(string, cost: coste_recursos)
+	
+	# Devuelve el hash digerido (digest) del string dado
+	def Usuario.digestion(cadena)
+		# Determina el segundo parametro "coste de recursos"
+		coste_recursos = ActiveModel::SecurePassword.min_cost ? BCrypt::Engine::MIN_COST :	
+																														BCrypt::Engine.cost	
+		# Se adapta BCrypt para que genere un digest con poco coste de recursos
+		BCrypt::Password.create(cadena, cost: coste_recursos)
+	end
 end

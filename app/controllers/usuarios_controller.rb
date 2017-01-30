@@ -21,18 +21,27 @@ class UsuariosController < ApplicationController
   	@usuario = Usuario.new(parametros_de_usuario)
   	if @usuario.save
   		# Hacer salida para registro correcto, es decir, guardado.
+
+      # Cap 8.2.5 - Acceder al registrarse
+      # Test en test/integration/registro_usuarios_test.rb:
+      #   test "@usuario_valido deberia ser válido"
+      # Ayudante acceso_a en app/helpers/sesiones_helper.rb
+      # Metodo de test esta_identificado? en test/test_helpers.rb
+      acceso_a @usuario
+
       # Cap 7.3
       # flash tiene varios tipos de mensajes. Envia su contenido a
       #   la siguiente peticion HTML
       flash[:success] = "Bienvenida a nuestra aplicación"
       flash[:exito] = "Tu usuaria se ha guardado correctamente"
-      flash[:warning] = "Bienvenida a nuestra aplicación"
+      #flash[:warning] = "Bienvenida a nuestra aplicación"
 
       redirect_to @usuario #equivalente a GET usuario_path(@usuario)
 
   	else
   		# Error en @usuario.save
   		# Los mensajes de error se añaden a @usuario
+      
   		# 7.3 Importante - se redirecciona el fallo de @usuario.save a la
   		# 	vista de new y no al controlador para que el @usuario erroneo
   		# 	no sea sobreescrito por el @usuario de usuarios#new y puedan
@@ -40,6 +49,7 @@ class UsuariosController < ApplicationController
   		render 'new'
   	end
   end
+
 
   # Strong parameters
   # Asignacion masiva con profilaxis contra añadidos en la

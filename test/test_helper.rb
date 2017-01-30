@@ -18,5 +18,17 @@ class ActiveSupport::TestCase
   # Probar los ayudantes en app/helpers/applicacion_helper.rb
   include ApplicationHelper
 
+  include SesionesHelper
+  # Cap 8.2.5
+  # Devuelve true si un usuario de test ha accedido.
+  # Metodo paralelo a metodo acceso_a (de SesionesHelper)
+  # 	Los metodos ayudantes no están disponibles en los tests, con lo
+  # 	que el metodo usuario_actual (de Sesioneshelper) no se puede usar.
+  # 	Se usa un nombre diferente al metodo ha_accedido? para evitar
+  # 	confusion.
+  def esta_identificada? # is_logged_in?
+  	!session[:usuario_id].nil?
+  end
+
   # Add more helper methods to be used by all tests here...
 end

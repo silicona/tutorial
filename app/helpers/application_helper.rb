@@ -22,5 +22,10 @@ module ApplicationHelper
       titulo_pagina + " | " + titulo_base
     end
   end
+
+  # Metodo ayudante de Santiago Ponce
+  def enlace_a(nombre, url)
+    link_to(nombre, url)
+  end
 end
 

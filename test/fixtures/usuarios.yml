@@ -1,5 +1,18 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
+# Capitulo 8.4 - Test de log in - Acceder
+# Se activan despues de modificar app/models/usuario.rb para añadir el
+#   método Usuario.digestion(cadena), que permite convertir los passwords
+#   de los fixtures para :password_digest.
+# No se puede poner un atributo password, porque no existe en el modelo.
+
+leonor:
+  nombre: Leonor
+  email: leonor@bourdeos.fra
+  # Uso de Usuario.digestion
+  password_digest: <%= Usuario.digestion('password') %>
+
+
 # Capitulo 6.2
 # Al poner el indice en la columna email de la tabla usuarios,
 # los test fallan porque utilizan este archivo como ejemplos

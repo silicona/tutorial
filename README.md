@@ -1,5 +1,11 @@
 # Tutorial Ruby on Rails
 
+Añadido (inflect.irregular 'sesion', 'sesiones') para el controlador Sesiones del capitulo 8. Añadir antes de crear el controlador
+
+	app/config/initializers/inflections.rb
+
+	Por ahora, no usaremos la castellanizacion de Rails en pleno, para evitar conflictos de vocabulario, que requieren config/locale/es.yml y otros 
+
 Se anula el archivo scaffolds.scss porque interfiere con el CSS del tutorial. Se renombra para que deje de ser efectivo y permanezca disponible.
 
 Hay un archivo de expresiones regulares en el root, llamado Regexp.rb, desde el capitulo 6. supongo que ira creciendo.

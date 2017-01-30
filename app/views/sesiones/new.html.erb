@@ -1,0 +1,29 @@
+<!-- Capitulo 8.1 - Log in -->
+
+<% provide(:titulo, "Acceder") %>
+
+<h1>Acceder</h1>
+<div class="row">
+	<div class="col-md-6 col-md-offset-3">
+		<!-- 
+		Usamos el form_for de usuarios#new como modelo para este
+		Como no hay Modelo Sesion, le damos mas información al form_for:
+			El form_for de usuarios#new es un POST a /usuarios.
+			En este form_for indicamos el nombre del recurso y su URL correspondiente
+		-->
+		<%= form_for(:sesion, url: acceder_path) do |f| %>
+
+			<%= f.label :email %>
+			<%= f.email_field :email, class: 'form_control'%>
+
+			<%= f.label :password %>
+			<%= f.password_field :password, class: 'form_control' %>
+
+			<%= f.submit "Acceder", class: "btn btn-primary" %>
+			<!-- submit enviara params[:session], con los atributos email: y
+				password: -->
+		<% end %>
+		<br>
+		<p>¿No tienes usuaria en esta página? <%= link_to "Registrate YA!", registro_path %></p>
+	</div>
+</div>
