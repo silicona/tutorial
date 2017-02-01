@@ -7,6 +7,13 @@ class UsuarioTest < ActiveSupport::TestCase
 	# hacemos un test de un objeto valido.
 
 	#Es necesario inicializar un objeto para los test del modelo
+
+	# Capitulo 9.1.4 - Bug Sutil 2
+	# Si se cierra correctamente en un navegador pero no en el segundo,
+	# 	al volver a activar el segundo, da error.
+	# Test "autentificar? deberia dar false"
+	# 	Solucion: En método autentificar? del modelo Usuario.rb
+
 	def setup
 		@leonor = Usuario.new(
 			nombre: "Leonor de Aquitania", 
@@ -154,6 +161,13 @@ class UsuarioTest < ActiveSupport::TestCase
 	test "La contraseña deberia tener una longitud mínima" do
 		@michael.password = @michael.password_confirmation = "pass"
 		assert_not @michael.valid?
+	end
+
+	# Autentificar? debería ser false para un usuario con digest nil
+	test "autentificar? deberia ser false" do
+		# Da error ya que BCrypt::Password.new(nil) levanta excepción
+		# 	BCrypt::Errors::InvalidHash: invalid hash
+		assert_not @leonor.autentificar?('')
 	end
 
 end

@@ -18,7 +18,7 @@ class ActiveSupport::TestCase
   # Probar los ayudantes en app/helpers/applicacion_helper.rb
   include ApplicationHelper
 
-  include SesionesHelper
+  
   # Cap 8.2.5
   # Devuelve true si un usuario de test ha accedido.
   # Metodo paralelo a metodo acceso_a (de SesionesHelper)
@@ -26,9 +26,32 @@ class ActiveSupport::TestCase
   # 	que el metodo usuario_actual (de Sesioneshelper) no se puede usar.
   # 	Se usa un nombre diferente al metodo ha_accedido? para evitar
   # 	confusion.
+  # Usado en:
+  #   ?
   def esta_identificada? # is_logged_in?
   	!session[:usuario_id].nil?
   end
 
+  # Capitulo 9.3
+  # Accede como un usuario particular
+  # Metodo paralelo a def acceso_a (de SesionesHelper)
+  # Usados en:
+  #   Test/integration/acceso_usuarios
+  #     test "Acceder con recordatorio"
+  #     test "Acceder sin recordatorio"
+  # Primer método ayudante para el test del checkbox
+  def acceso_como(usuario)
+    session[:usuario_id] = usuario.id
+  end
+
+  # Segundo método ayudante para el test de checkbox
+  class ActionDispatch::IntegrationTest
+    #Accede con un usuario particular
+    def acceso_como(usuario, password: 'password', recuerda_me: '1')
+      post acceder_path params: { sesion: { email: usuario.email,
+                                            password: password,
+                                            recuerda_me: recuerda_me }}
+    end
+  end                                          
   # Add more helper methods to be used by all tests here...
 end

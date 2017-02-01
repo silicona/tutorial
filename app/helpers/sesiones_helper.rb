@@ -9,17 +9,66 @@ module SesionesHelper
 	# Usado en:
 		#	sesiones#create(inicia la sesion)
 		# usuarios#create (acceder al registrarse)
+		# def usuario_actual, más abajo
 	def acceso_a(usuario) 	###  log_in  ###
 		session[:usuario_id] = usuario.id
 	end
 
+	# Capitulo 9.1.2
+	# Usado en sessiones#create
+	# Recuerda un usuario en una sesion persistente
+	# El navegador del usuario obtiene un token_recuerda válido
+	def recordar(usuario) 	### remember ###
+		# Método recuerda en modelo Usuario.rb
+		usuario.recuerda
+		# La id del usuario se empareja con el token_recuerda
+		cookies.permanent.signed[:usuario_id] = usuario.id
+		cookies.permanent[:token_recuerda] = usuario.token_recuerda
+	end
+
 	# Devuelve el actual usuario accedido - logeado (si hay)
-	# usuario_actual permite usar la id en las siguientes paginas web
-	# 	hasta que se cierre el navegador.
+	# usuario_actual (sesion temporal) permite usar la id en las 
+	# 	siguientes paginas web hasta que se cierre el navegador.
 	# Utilizado en views/layouts/_cabecera.html.erb
 	# Su test esta en test/integration/acceso_usuario_test.rb
-	def usuario_actual 		
-		@usuario_actual ||= Usuario.find_by( id: session[:usuario_id])
+	## 	Modificado en 9.1.2
+	##  Añadida construcción para recoger session y cookies
+	def usuario_actual 	### current_user ###
+
+	##  Version sin reduplicar session y cookies, concentrandolos en la
+	## 		variable usuario_id
+
+		# Rama sesion temporal
+		if ( usuario_id = session[:usuario_id] )
+
+			# Este usuario_actual solo conoce la sesion temporal		
+			#@usuario_actual ||= Usuario.find_by( id: session[:usuario_id])
+			@usuario_actual ||= Usuario.find_by( id: usuario_id )
+
+		# Rama Recuerda - sesión permamente	
+		elsif ( usuario_id = cookies.signed[:usuario_id] )
+			
+			# Cap 9.3.2 - Test de la rama Recuerda
+			# No hay test para comprobar la factorizacion del metodo para 11
+			# Raise para provocar fallo 
+			#raise 		## Anulado para test en verde ##
+			## Fin 9.3.2 ##
+
+			# Variable local para trabajar en el método
+			usuario = Usuario.find_by( id: usuario_id)
+			
+			# Método autentificado? en modelo Usuarios.rb
+			## Cap 9.3.2 Ejercicio - test "usuario_actual devuelve nil cuando recuerda hace la digestión erroneo" do
+			## Falla si autentificado? está comentado
+			if usuario && usuario.autentificado?(cookies[:token_recuerda])
+				
+				# Metodo más arriba
+				acceso_a usuario
+				@usuario_actual = usuario
+			end
+		end
+		## fin 9.1.2 ##
+	
 	end
 
 	# Capitulo 8.2.3 - Cambiando links
@@ -30,12 +79,26 @@ module SesionesHelper
 		!usuario_actual.nil?
 	end
 
+	# Capitulo 9.1.3 - Olvidando usuarios
+	# Olvida ( termina ) una sesion persistente
+	def olvidar(usuario)
+		# Método olvida en Modelo Usuario.rb
+		usuario.olvida
+		# Borra las dos cookies
+		cookies.delete(:usuario_id)
+		cookies.delete(:token_recuerda)
+	end
+
 	# Capitulo 8.3 - Cerrando sesión
 	# Este método se usa en sesiones#destroy
-	def cerrar_sesion
+	def cerrar_sesion 	### log_out ###
+		# Cap 9.1.3
+		# Método más arriba
+		olvidar(usuario_actual)
+		# Fin 9.1.3 #
 		session.delete(:usuario_id)
 
-		# En este ejemplo, no importa lasiguiente linea, ya que hay un 
+		# En este ejemplo, no importa la siguiente linea, ya que hay un 
 		# 	redireccionamiento al root.
 		@usuario_actual = nil
 	end

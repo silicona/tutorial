@@ -19,6 +19,13 @@
 			<%= f.label :password %>
 			<%= f.password_field :password, class: 'form_control' %>
 
+			<!-- Capitulo 9.2 - Recuerda_me para sesiones persistentes -->
+			<%= f.label :recuerda_me, class: "checkbox inline" do %>
+				<%= f.check_box :recuerda_me %>
+				<span>Recuerdame en este ordenador</span>
+			<% end %>
+			<!-- Fin 9.2 -->
+
 			<%= f.submit "Acceder", class: "btn btn-primary" %>
 			<!-- submit enviara params[:session], con los atributos email: y
 				password: -->

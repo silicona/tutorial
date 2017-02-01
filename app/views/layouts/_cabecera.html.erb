@@ -41,8 +41,11 @@
           <li><%= link_to "Acceder", acceder_path %></li>
       
           <!-- Capitulo 5.4 - Registro de usuaria -->
-          <!-- En 8.2.3 este enlace desaparece. Aqui no -->
-          <li><%= link_to "Registrarse", registro_path %></li>
+          <!-- 
+            En 8.2.3 este enlace desaparece, ya que el acceso se
+          realiza por el enlace en views/paginas_estaticas/inicio.html.erb
+           -->
+          <!--<li><%# link_to "Registrarse", registro_path %></li>-->
       
         <% end %>
         <!-- Fin 8.2.3 -->

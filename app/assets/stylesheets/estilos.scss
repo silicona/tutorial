@@ -88,7 +88,8 @@ aside {
 
 /* fin de CSS 7.1.4 */
 
-/* CSS 7.2 - Formularios - Forms */
+/* Formularios - Forms */
+/* CSS 7.2 */
 /* Reutilización de @mixin marco */
 
 input, textarea, select, .uneditable-input {
@@ -118,6 +119,23 @@ input, textarea, select, .uneditable-input {
 }
 
 /* Fin de CSS 7.2 */
+
+/* CSS 9.2 - Checkbox :recuerda_me */
+.checkbox {
+  margin-top: -10px;
+  margin-bottom: 10px;
+  span {
+    margin-left: 20px;
+    font-weight: normal;
+  }
+}
+/* Cuidado con no cambiar bien los nombres */
+/* Mirar el checkbox con #session_recuerda_me */
+#sesion_recuerda_me {
+  width: auto;
+  margin-left: 0;
+}
+/* Fin CSS 9.2 */
 
 input {
   height: auto !important;
