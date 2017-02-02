@@ -26,6 +26,13 @@ module SesionesHelper
 		cookies.permanent[:token_recuerda] = usuario.token_recuerda
 	end
 
+	# Capitulo 10.2.2
+	# Metodo para test
+	# Devuelve true si el usuario dado es el usuario actual
+	def usuario_actual?(usuario)
+		usuario == usuario_actual
+	end
+
 	# Devuelve el actual usuario accedido - logeado (si hay)
 	# usuario_actual (sesion temporal) permite usar la id en las 
 	# 	siguientes paginas web hasta que se cierre el navegador.
@@ -103,4 +110,25 @@ module SesionesHelper
 		@usuario_actual = nil
 	end
 	
+	# Capitulo 10.2.3
+	# Metodos para Envio Amistoso
+	# Recupera la URL a la que se intentaba ir cuadno salio el error
+	# Redirige a la localizacion guardada o al default. Después, borra
+	# 	la session para que no redirija más a la misma pagina
+	# Usado en:
+	# 	sesiones#create
+	def redirige_de_vuelta_o(url_por_defecto)
+		redirect_to(session[:reenvio_url] || url_por_defecto)
+		session.delete(:reenvio_url)
+	end
+
+	# Guarda la url a la que se intenta acceder
+	# La cola if se asegura que el método no responde a otras peticiones
+	# 	HTTP, comoun usuario que borre la cookie del navegador y envie un
+	# 	formulario (de creación o actualización)
+	# Usado en:
+	#		usuarios#usuario_accedido
+	def guardar_url
+		session[:reenvio_url] = request.original_url if request.get?
+	end
 end

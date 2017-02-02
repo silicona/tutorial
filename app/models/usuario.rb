@@ -17,7 +17,7 @@ class Usuario < ApplicationRecord
 	before_save { email.downcase! }
 
 	# Validacion del atributo del usuario / la columna nombre de la DB
-	validates :nombre, presence: true, length: { maximum: 20 }
+	validates :nombre, presence: true, length: { maximum: 25 }
 
 	# Tutorial
 	#REGEX_VALIDACION_MAIL = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
@@ -36,15 +36,16 @@ class Usuario < ApplicationRecord
 	# Capitulo 6.3
 	# Esta validacion se corresponde con la columna password_digest
 	# 	de la tabla Usuarios, creada con una migracion
-	has_secure_password
+	has_secure_password 
 
 	Regex_password = /\A[a-z\d)_]{4,15}\z/
 
 	validates :password,
 		presence: true,
 		length: { minimum: 5, maximum: 15 },
-		format: { with: Regex_password }
-
+		format: { with: Regex_password },
+		# Permite que editar el perfil no obligue a cambiar la password
+		allow_nil: true
 
 	# Capitulo 8.4 - Test de log in - Acceder
 	# Adaptacion de fixtures.yml para acceso_usuario_test.rb

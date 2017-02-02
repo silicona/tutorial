@@ -147,14 +147,14 @@ class AccesoUsuarioTest < ActionDispatch::IntegrationTest
 	test "Acceder con recordatorio - Ejercicio" do
 		acceso_como(@usuario, recuerda_me: '1')
 		# Solucion propia
-		assert assigns(:usuario).autentificar?(cookies['token_recuerda'])
+		assert assigns(:usuario).autentificado?(cookies['token_recuerda'])
 		# Solucion http://stackoverflow.com/users/4909789/philip-becker
 		# 	http://stackoverflow.com/questions/29797289/rails-nomethoderror-undefined-method-for-nilnilclass
 		assert_equal assigns(:usuario).token_recuerda, cookies['token_recuerda']
 
 
 		acceso_como(@usuario, recuerda_me: '0')
-		assert_equal false, assigns(:usuario).autentificar?(cookies['token_recuerda'])
+		assert_equal false, assigns(:usuario).autentificado?(cookies['token_recuerda'])
 		assert_not_equal assigns(:usuario).token_recuerda, cookies['token_recuerda']
 
 	end

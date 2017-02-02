@@ -1,5 +1,22 @@
 class UsuariosController < ApplicationController
 
+  # Capitulo 10.2 - Autorizacion para edit y update
+  # Cap 10.4.3 - Se añade :destroy a :usuario_accedido
+  #   Solución simple de test/controllers/usuario_controller_test.rb
+  #     test "Redirige Destroy si no hay no acceso"
+  before_action :usuario_accedido, only: [:index, :edit, :update, :destroy]
+  before_action :usuario_correcto, only: [:edit, :update]
+  before_action :usuario_admin, only: :destroy
+
+  # Capitulo 10.3 - Mostrar todas las usuarias
+  def index
+
+    # Cap 10.3.3 - Paginacion
+    @usuarios = Usuario.paginate(page: params[:page])
+    # Anulado por 10.3.3
+    #@usuarios = Usuario.all
+  end
+
 	# Capitulo 7 - comienzo de REST
 	def show
 		@usuario = Usuario.find(params[:id])
@@ -37,7 +54,6 @@ class UsuariosController < ApplicationController
       #flash[:warning] = "Bienvenida a nuestra aplicación"
 
       redirect_to @usuario #equivalente a GET usuario_path(@usuario)
-
   	else
   		# Error en @usuario.save
   		# Los mensajes de error se añaden a @usuario
@@ -48,6 +64,31 @@ class UsuariosController < ApplicationController
   		# 	llegar los errores a la pantalla.
   		render 'new'
   	end
+  end
+
+  # Cap 10.1
+  def edit
+    @usuario = Usuario.find(params[:id])
+  end
+
+  def update
+    @usuario = Usuario.find(params[:id])
+
+    # Uso de la Whitelist
+    if @usuario.update_attributes(parametros_de_usuario)
+      # Hacer la salida para el buen guardado de datos
+      flash[:success] = "Perfíl actualizado"
+      redirect_to @usuario
+    else
+      # Los mensajes de error vienen de las validaciones de Usuario.rb
+      render 'edit'
+    end
+  end
+
+  def destroy
+    Usuario.find(params[:id]).destroy
+    flash[:success] = "Usuario eliminado"
+    redirect_to usuarios_url
   end
 
 
@@ -65,5 +106,33 @@ class UsuariosController < ApplicationController
   														:password,
   														:password_confirmation )
   	end
+
+    # Cap 10.2.1 - Filtro contra anónimos
+    def usuario_accedido
+      unless ha_accedido?
+        # Metodo de SesionesHelper
+        guardar_url
+        flash[:danger] = "Por favor, accede con tu usuaria"
+        redirect_to acceder_url
+      end
+    end
+
+    # Cap 10.2.2 - Filtro contra otro usuario
+    def usuario_correcto
+      @usuario = Usuario.find(params[:id])
+      flash[:peligro] = "Esa página no es tuya, bribona"
+      # metodo usuario_actual? en SesionesHelper
+      redirect_to(root_url) unless usuario_actual?(@usuario)
+    end
+
+    # Confirma una usuaria administradora
+    def usuario_admin
+      
+      redirect_to(root_url) unless usuario_actual.admin?
+
+      # Solucion derivada a test "Redirige Destroy si no hay no acceso - Solucion simple"
+      #   en test/controllers/usuarios_controller_test.rb
+      #redirect_to(root_url) unless usuario_actual.try(:admin?)
+    end
 
 end

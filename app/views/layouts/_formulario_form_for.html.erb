@@ -1,0 +1,29 @@
+<!-- Capitulo 10.1 Ejercicio 2 -->
+
+<!--
+  Rails dirige el submit de form_for hacia usuarios#create ( via post /usuarios) al identificar que @usuario es un objeto Usuario.new.
+  Lo hace ejecutando new_record? a la base de datos.
+	En new, form_for se completaba con url: registro_path
+-->
+
+<%= form_for(@usuario) do |f| %>
+  <!-- 
+        7.3/10.1 Mensajes de error en el registro
+    Aparecen al volver a la vista new/edit tras fallar @usuario.save en usuarios#create 
+  -->
+  <%= render 'compartido/mensajes_de_error', object: @usuario %>
+
+  <%= f.label :nombre %>
+  <%= f.text_field :nombre, class: 'form-control' %>
+
+  <%= f.label :email %>
+  <%= f.email_field :email, class: 'form-control' %>
+
+  <%= f.label :password, "Contraseña" %>
+  <%= f.password_field :password, class: 'form-control' %>
+
+  <%= f.label :password_confirmation, "Confirma la contraseña" %>
+  <%= f.password_field :password_confirmation, class: 'form-control' %>
+
+  <%= f.submit yield(:boton_de_enviar), class: "btn btn-primary" %>
+<% end %>

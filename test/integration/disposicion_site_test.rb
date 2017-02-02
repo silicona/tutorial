@@ -6,6 +6,8 @@ class DisposicionSiteTest < ActionDispatch::IntegrationTest
 		@texto = "Esta es la página de Inicio del Tutorial Rails de Learn Enough.
   	
   	¿O pensabas que lo había hecho yo todo?"
+
+  	@leonor = usuarios(:leonor)
   end
 
 	test "enlaces_layout" do
@@ -56,4 +58,25 @@ class DisposicionSiteTest < ActionDispatch::IntegrationTest
     assert_select "title", titulo_completo("Registrarse")
   end
 
+  # Cap 10.3
+  # Test de link en la pagina Index
+  test "enlaces_layout de Index con acceso" do
+  	acceso_como(@leonor)
+		get usuarios_path
+		assert_template 'usuarios/index'
+		assert_select "a[href=?]", root_path, count: 2
+		assert_select "a[href=?]", root_path, ""
+		assert_select "a[href=?]", root_path, "Inicio"
+
+		assert_select "a[href=?]", acerca_path
+		assert_select "a[href=?]", contacto_path
+		assert_select "a[href=?]", ayuda_path
+		assert_select "a[href=?]", ayuda_path, text: "Ayuda"
+
+		# Links del usuario
+		assert_select "a[href=?]", acceder_path, count: 0
+		assert_select "a[href=?]", cerrar_path
+		assert_select "a[href=?]", usuario_path(@leonor)
+		assert_select "a[href=?]", edit_usuario_path(@leonor)
+	end
 end

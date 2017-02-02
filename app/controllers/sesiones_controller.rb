@@ -1,5 +1,11 @@
 class SesionesController < ApplicationController
   def new
+
+    # Cap 10.2.3 Ejercicio 2
+    #   Debugger en sesiones#new, cerrar sesion y visitar
+    #     /usuarios/1/edit. Valores de session[:reenvio_url] y request.get?
+
+    #debugger   ## Anulado para continuar el tutorial
   end
 
   def create
@@ -34,7 +40,16 @@ class SesionesController < ApplicationController
       params[:sesion][:recuerda_me] == '1' ? recordar(@usuario) : 
                                              olvidar(@usuario)
 
-  		redirect_to @usuario #equivalente a usuario_url(usuario)
+      # Cap 10.2.3 - Reenvio amistoso
+      # Provocado por usuarios#before_action :usuario_correcto
+      # Método en SesionesHelper: reenvia de nuevo a la pagina deseada o
+      #   vuelve a @usuario, pagina por defecto
+      # Metodo que actua cuando la pagina del login es renderizada debido
+      #   a un acceso no autorizado a una pagina
+      redirige_de_vuelta_o @usuario
+      
+  		# Anulado por cap 10.2.3
+      #redirect_to @usuario #equivalente a usuario_url(usuario)
   	else
   		# Crear mensaje de error
   		# Como no hay objeto de ActiveRecord que contenga los mensajes de

@@ -24,8 +24,8 @@ module ApplicationHelper
   end
 
   # Metodo ayudante de Santiago Ponce
-  def enlace_a(nombre, url)
-    link_to(nombre, url)
+  def enlace_a(nombre, url, ops = {})
+    link_to(nombre, url, ops)
   end
 end
 

@@ -1,0 +1,12 @@
+<!-- Cap 10.3.5 - Refactorizacion -->
+
+<li>
+	<%= para_gravatar usuario, amplitud: 50 %>
+	<%= enlace_a usuario.nombre, usuario %>
+	<!-- Cap 10.4.2 Link de Destroy -->
+	<% if usuario_actual.admin? && !usuario_actual?(usuario) %>
+		<%= enlace_a "borrar", usuario, 
+			method: :delete, 
+			data: { confirm: "Estás segura?" } %>
+	<% end %>
+</li>

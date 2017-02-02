@@ -20,8 +20,8 @@ class RegistroUsuariosTest < ActionDispatch::IntegrationTest
 		@usuario = { 
 			nombre: "",
 			email: "",
-			password: "",
-			password_confirmation: ""
+			password: "foo",
+			password_confirmation: "bar"
 		}
 	end
 
@@ -71,25 +71,29 @@ class RegistroUsuariosTest < ActionDispatch::IntegrationTest
 		assert_select "div" do
 			assert_select "ul#mensajes>li", 1..7
 		end
-		assert_select "ul#mensajes li", count: 7
+		# Serian 7, pero allow_nil: true en modelo Usuario password
+		# 	inhabilita la validacion por defecto de has_secure_password
+		assert_select "ul#mensajes li", count: 6
 		assert_select "li#errores", 1..10
 
-		assert_select "ul#mensajes li", text: "Nombre can't be blank"
-		assert_select "ul#mensajes li", "Email is invalid"
-		assert_select "ul#mensajes li", "Email can't be blank"
+		assert_select "ul#mensajes li:first-child", text: "Nombre can't be blank"
+		assert_select "ul#mensajes li:nth-child(3)", "Email is invalid"
+		assert_select "ul#mensajes li:nth-child(6n+2)", "Email can't be blank"
 
-		assert_select "ul#mensajes li", text: "Password can't be blank"
-		assert_select "ul#mensajes li", text: "Password is too short (minimum is 5 characters)"
-		assert_select "ul#mensajes li", text: "Password is invalid"
+		assert_select "ul#mensajes li:nth-child(4)", text: "Password confirmation doesn't match Password"
+		assert_select "ul#mensajes li:nth-child(5)", text: "Password is too short (minimum is 5 characters)"
+		assert_select "ul#mensajes li:last-child", text: "Password is invalid"
     
 	end
 
 	test "La ruta de new GET y create POST deberia ser la misma" do
 		get registro_path
 		
+		# Test invalidado por 10.1 al crear el parcial formulario_form_for
+		# Se invierte, para que no de error
 		post registro_path, params: { usuario: @usuario }
-		assert_select 'form[action="/registro"]'
-		assert_select 'form[action="/usuarios"]', false, 
+		assert_select 'form[action="/usuarios"]'
+		assert_select 'form[action="/registro"]', false, 
 			"No deberia tener el form de /usuarios"
 	end
 

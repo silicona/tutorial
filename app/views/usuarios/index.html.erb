@@ -1,0 +1,27 @@
+<% provide(:titulo, "Usuarios") %>
+
+<h1>Todas las usuarias del site</h1>
+
+<!-- Cap 10.3.3 - Paginando los usuarios 
+Will_paginate muestra el index de paginacion
+-->
+<%= will_paginate %>
+
+<ul class="usuarias">
+  <% @usuarios.each do |usuario| %>
+    
+    <!-- Cap 10.3.5 - Refactorizacion
+		render sobre la variable usuario de la clase Usuario
+		Rails infiere el nombre del parcial del nombre de la clase
+    	usuario se relaciona con el singular de Usuarios.
+    	Por ejemplo, con usuaria, el error pide el template usuarios/_usuario
+    -->
+  <!-- Rails interpreta que usuario es un objeto de Usuario -->
+  	<%# render usuario %>
+  <!-- Rails infiere que @usuarios es una lista de objetos Usuario -->
+  	<%= render @usuarios %>
+
+  <% end %>
+</ul>
+
+<%= will_paginate %>

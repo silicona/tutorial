@@ -11,6 +11,10 @@ end
 gem 'rails',        '5.0.1'
 # Añadida en capitulo 6, para encriptar la password del usuario
 gem 'bcrypt',       '3.1.11'
+# Añadida para Cap 10.3.2 - Usuarios de muestra: Crea usuarios falsos
+gem 'faker',        '1.6.6'
+# Añadida Cap 10.3.3 Paginacion de usuarios
+gem 'will_paginate', '3.1.0'
 # Añadida en Capitulo 5, para lo obvio...
 gem 'bootstrap-sass',    '3.3.6'
 gem 'puma',         '3.4.0'

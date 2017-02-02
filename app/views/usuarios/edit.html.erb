@@ -1,0 +1,22 @@
+<!-- Cap 10.1 -->
+<% provide(:titulo, "Editar usuario") %>
+<% provide(:boton_de_enviar, 'Guardar los cambios') %>
+
+<h1>Actualiza tu perfíl</h1>
+
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+
+    <%= render 'layouts/formulario_form_for' %>
+
+    <div class="gravatar_edit">
+      <!-- UsuariosHelper#para_gravatar -->
+      <%= para_gravatar @usuario %>
+      <!-- Vulnerabilidad de target="_blank" 
+      Una web puede introducir codigo malvado para realizar phising,
+      obtencion de informacion sensible.
+        Se añade rel="noopener" -->
+      <a href="http://gravatar.com/emails" target="_blank" rel="noopener">Cambiar</a>
+    </div>
+  </div>
+</div>

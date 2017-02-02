@@ -11,9 +11,34 @@ leonor:
   email: leonor@bourdeos.fra
   # Uso de Usuario.digestion
   password_digest: <%= Usuario.digestion('password') %>
+  # Se hace admin a leonor
+  admin: true
 
+# Creada para Cap 10.2.2
+lucrecia:
+  nombre: Lucrecia Borgia
+  email: lucrecia@borgia.gov
+  password_digest: <%= Usuario.digestion('password') %>
 
-# Capitulo 6.2
+# Creadas por Cap 10.3.4 - Test de index
+paco:
+  nombre: Paco el Zombie
+  email: paco@enterrado.sub
+  password_digest: <%= Usuario.digestion('password') %>
+
+perico:
+  nombre: Perico Palotes
+  email: perico@eldelospal.otes
+  password_digest: <%= Usuario.digestion('password') %>
+
+<% 30.times do |n| %>
+usuario_<%= n %>:
+  nombre: <%= "Usuario_#{n}" %>
+  email: <%= "usuario-#{n}" %>
+  password_digest: <%= Usuario.digestion('password') %>
+<% end %>
+
+  # Capitulo 6.2
 # Al poner el indice en la columna email de la tabla usuarios,
 # los test fallan porque utilizan este archivo como ejemplos
 # Se anulan hasta el capitulo 8 para que no den errores en test.
