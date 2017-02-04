@@ -1,0 +1,11 @@
+CorreoDeUsuario#activacion_usuarios
+
+Hola <%= @usuario.nombre %>,
+
+¡Bienvenida a esta aplicación de ejemplo del Tutorial Rails!
+
+Pulsa en el enlace de abajo para activar tu cuenta:
+
+<%= edit_activacion_usuario_url(
+	@usuario.token_activacion, 
+	email: @usuario.email) %>

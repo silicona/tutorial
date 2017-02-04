@@ -15,14 +15,18 @@ Usuario.create!(
 	email: "example@railstutorial.org",
 	password: "password",
 	password_confirmation: "password",
-	admin: true
+	admin: true,
+	activado: true,
+	activado_en: Time.zone.now
 )
 
 Usuario.create!(
 	nombre: "Silicona",
 	email: "vertederonuclear@gmail.com",
 	password: "password",
-	password_confirmation: "password"
+	password_confirmation: "password",
+	activado: true,
+	activado_en: Time.zone.now
 )
 
 # Uso de faker para crear a la Legion de Condenadas
@@ -34,6 +38,8 @@ Usuario.create!(
 		nombre: nombre,
 		email: email,
 		password: "password",
-		password_confirmation: "password"
+		password_confirmation: "password",
+		activado: true,
+		activado_en: Time.zone.now
 	)
 end

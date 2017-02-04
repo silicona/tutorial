@@ -25,31 +25,42 @@ class SesionesController < ApplicationController
   	# 	[:session] con el guardado en usuario obtenido.
   	if @usuario && @usuario.authenticate(params[:sesion][:password])
   		
-      # Da acceso al usuario y lo redirige a su pagina personal
-  		# Usando ayudante "acceso_a" desde app/helpers/sesiones_helper.rb
-  		acceso_a @usuario
+      #Capitulo 11.3.2 - Restringe el acceso a usaurios activados
+      if @usuario.activado?
 
-      # Capitulo 9.1.2
-      #   Metodo ayudante para recordar la sesión del usuario
-      #   Definido en app/helpers/sesiones_helper.rb
-      #recordar usuario   ## Anulado por 9.2 ##
+        # Da acceso al usuario y lo redirige a su pagina personal
+    		# Usando ayudante "acceso_a" desde app/helpers/sesiones_helper.rb
+    		acceso_a @usuario
 
-      # Capitulo 9.2
-      #   Gestiona el envio del checkbox :recuerda_me
-      #   Viene desde views/sesiones/new.html.erb
-      params[:sesion][:recuerda_me] == '1' ? recordar(@usuario) : 
-                                             olvidar(@usuario)
+        # Capitulo 9.1.2
+        #   Metodo ayudante para recordar la sesión del usuario
+        #   Definido en app/helpers/sesiones_helper.rb
+        #recordar usuario   ## Anulado por 9.2 ##
 
-      # Cap 10.2.3 - Reenvio amistoso
-      # Provocado por usuarios#before_action :usuario_correcto
-      # Método en SesionesHelper: reenvia de nuevo a la pagina deseada o
-      #   vuelve a @usuario, pagina por defecto
-      # Metodo que actua cuando la pagina del login es renderizada debido
-      #   a un acceso no autorizado a una pagina
-      redirige_de_vuelta_o @usuario
-      
-  		# Anulado por cap 10.2.3
-      #redirect_to @usuario #equivalente a usuario_url(usuario)
+        # Capitulo 9.2
+        #   Gestiona el envio del checkbox :recuerda_me
+        #   Viene desde views/sesiones/new.html.erb
+        params[:sesion][:recuerda_me] == '1' ? recordar(@usuario) : 
+                                               olvidar(@usuario)
+
+        # Cap 10.2.3 - Reenvio amistoso
+        # Provocado por usuarios#before_action :usuario_correcto
+        # Método en SesionesHelper: reenvia de nuevo a la pagina deseada o
+        #   vuelve a @usuario, pagina por defecto
+        # Metodo que actua cuando la pagina del login es renderizada debido
+        #   a un acceso no autorizado a una pagina
+        redirige_de_vuelta_o @usuario
+        
+    		# Anulado por cap 10.2.3
+        #redirect_to @usuario #equivalente a usuario_url(usuario)
+      else
+        
+        # En caso de intentar acceder sin activar el link de activacion
+        mensaje = "Cuenta no activada. "
+        mensaje += "Comprueba tu email para activarla."
+        flash[:warning] = mensaje
+        redirect_to root_url
+      end
   	else
   		# Crear mensaje de error
   		# Como no hay objeto de ActiveRecord que contenga los mensajes de

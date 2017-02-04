@@ -1,5 +1,11 @@
 # Expresiones regulares - ejemplos
 
+# Test de RegExp
+assert_match 'foo', 'foobar'      # true
+assert_match 'baz', 'foobar'      # false
+assert_match /\w+/, 'foobar'      # true
+assert_match /\w+/, '$#!*+@'      # false
+
 # Fecha y hora de Time.now
 puts 'Time.now OK' if 
 	/(\d{2,4}\-\d{1,2}\-\d{1,2})\s(\d{2}\:\d{2}\:\d{2})\s([\+\-]\d{4})/ =~ 

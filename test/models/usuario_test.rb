@@ -167,7 +167,7 @@ class UsuarioTest < ActiveSupport::TestCase
 	test "autentificar? deberia ser false" do
 		# Da error ya que BCrypt::Password.new(nil) levanta excepción
 		# 	BCrypt::Errors::InvalidHash: invalid hash
-		assert_not @leonor.autentificado?('')
+		assert_not @leonor.autentificado?(:recuerda, '')
 	end
 
 end

@@ -1,0 +1,11 @@
+<h1>Aplicación de ejemplo</h1>
+
+<p>Hola <%= @usuario.nombre %></p>
+
+<p>
+	¡Bienvenida a nuestra aplicacion de ejemplo del Tutorial Rails!
+
+	Pulsa el enlace de abajo para activar tu cuenta:
+</p>
+
+<%= link_to "Activar", edit_activacion_usuario_url(@usuario.token_activacion, email: @usuario.email) %>

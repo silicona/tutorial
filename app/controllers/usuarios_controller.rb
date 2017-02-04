@@ -11,8 +11,11 @@ class UsuariosController < ApplicationController
   # Capitulo 10.3 - Mostrar todas las usuarias
   def index
 
+    #Cap 11.3.3 - Index de usuarios activados
+    @usuarios = Usuario.where(activado: true).paginate(page: params[:page])
+
     # Cap 10.3.3 - Paginacion
-    @usuarios = Usuario.paginate(page: params[:page])
+    #@usuarios = Usuario.paginate(page: params[:page])
     # Anulado por 10.3.3
     #@usuarios = Usuario.all
   end
@@ -20,7 +23,10 @@ class UsuariosController < ApplicationController
 	# Capitulo 7 - comienzo de REST
 	def show
 		@usuario = Usuario.find(params[:id])
-		
+
+    # Cap 11.3.3 - Usuarios no activados
+		redirect_to root_url and return unless :activacion
+
 		# gema byebug en accion
 		# En consola, permite acceder a los datos que maneja el metodo,
 		# como params, o los atributos de @usuario
@@ -39,21 +45,28 @@ class UsuariosController < ApplicationController
   	if @usuario.save
   		# Hacer salida para registro correcto, es decir, guardado.
 
+      # Cap 11.2.4 - Creacion con activacion de usuario
+      # Metodo enviar_email_activacion en modelo Usuario.rb
+      @usuario.enviar_email_activacion
+      flash[:info] = "Por favor, comprueba tu email para activar tu cuenta."
+      redirect_to root_url
+
+    # Todo anulado por Cap 11.2.4
       # Cap 8.2.5 - Acceder al registrarse
       # Test en test/integration/registro_usuarios_test.rb:
       #   test "@usuario_valido deberia ser válido"
       # Ayudante acceso_a en app/helpers/sesiones_helper.rb
       # Metodo de test esta_identificado? en test/test_helpers.rb
-      acceso_a @usuario
+      #acceso_a @usuario
 
       # Cap 7.3
       # flash tiene varios tipos de mensajes. Envia su contenido a
       #   la siguiente peticion HTML
-      flash[:success] = "Bienvenida a nuestra aplicación"
-      flash[:exito] = "Tu usuaria se ha guardado correctamente"
+      #flash[:success] = "Bienvenida a nuestra aplicación"
+      #flash[:exito] = "Tu usuaria se ha guardado correctamente"
       #flash[:warning] = "Bienvenida a nuestra aplicación"
 
-      redirect_to @usuario #equivalente a GET usuario_path(@usuario)
+      #redirect_to @usuario #equivalente a GET usuario_path(@usuario)
   	else
   		# Error en @usuario.save
   		# Los mensajes de error se añaden a @usuario

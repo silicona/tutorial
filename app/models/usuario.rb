@@ -3,7 +3,9 @@ class Usuario < ApplicationRecord
 	# Capitulo 9
 	# Accessor para emular a has_secure_password
 	# Utilizado en metodo recuerda, más abajo
-	attr_accessor :token_recuerda
+	##  Los accesores crean atributos virtuales, que no se guardan en la db.
+	##  	Sus asociados son los *_digest, hasheados
+	attr_accessor :token_recuerda, :token_activacion
 
 	# Capitulo 6
 	# Despues de hacer el test de test/models/usuario_test.rb
@@ -12,9 +14,11 @@ class Usuario < ApplicationRecord
 	# Algunos adaptadores de bases de datos son case-sensitive, aunque
 	# nuestra aplicacion no lo es (debido a la i de la RegExp).
 	# Establecemos un before para guardar los email en minusculas en la DB:
-	# before_save { self.email = email.downcase }
-	# Igual
-	before_save { email.downcase! }
+
+	# Cap 11.1.2 - Activacion de usuarios
+	# Metodos privados para los callbacks de before
+	before_save :email_en_minusculas	
+	before_create :crear_activacion_digest
 
 	# Validacion del atributo del usuario / la columna nombre de la DB
 	validates :nombre, presence: true, length: { maximum: 25 }
@@ -70,6 +74,10 @@ class Usuario < ApplicationRecord
 		# Asociamos el digest
 
 		# Devuelve un token aleatorio, codificado en base64
+		## 	Generador de tokens
+		# 	usado en:
+		# 		Usuario#recuerda
+		# 		Usuario#crear_token_activacion
 		#def Usuario.nuevo_token 		## Anulado por Listado 9.4 ##
 		#def self.nuevo_token 	 ## Anulado por Listado 9.5 ##
 		def nuevo_token
@@ -88,20 +96,13 @@ class Usuario < ApplicationRecord
 		update_attribute( :recuerda_digest, Usuario.digestion(token_recuerda) )
 	end
 
-	# Capitulo 9.1.2 - Acceder con recuerda
-	# Metodo que hace la función de authenticate de has_secure_password
-	# Metodo que desencripta la id de la cookie y la compara con :recuerda_digest
-	# Devuelve true si el token coincide con el digest
-	# Usado en SesionesHelper#usuario_actual
-	def autentificado?(token_recuerda)
-		# Cap 9.1.4 - Bug Sutil 2 (desde test de modelo usuario)
-		# 	Solucion: Devuelve false si el digest es nil
-		return false if recuerda_digest.nil?
-		
-		# token_recuerda es una variable local del método y no el accessor
-		## Nota: token_recuerda está Hashed, no encriptado
-		# el atributo recuerda_digest es el mismo de self.recuerda_digest
-		BCrypt::Password.new(recuerda_digest).is_password?(token_recuerda)
+	# Cap 11.3.1 - Refactorizando autentificado?
+	# Ver lo anterior al final.
+	# Devuelve true si el token dado coincide con el digest
+	def autentificado?(atributo, token) 	### authenticated? ###
+		digestion = send("#{atributo}_digest") 	# self.send == send
+		return false if digestion.nil?
+		BCrypt::Password.new(digestion).is_password?(token)
 	end
 
 	# Cap 9.1.3 - Olvidando usuarios
@@ -111,4 +112,64 @@ class Usuario < ApplicationRecord
 		update_attribute(:recuerda_digest, nil)
 	end
 
+	# Cap 11.3.3 refactorizacion email de activacion
+	# Activa una cuenta de usuario
+	# Usado en:
+	# 	activacion_usuarios#edit
+	def activacion
+		
+		# Metodo para refactorizar los update inferiores
+		update_columns(activado: true, activado_en: Time.zone.now)
+
+		# Se prescinde del anterior "usuario.", ya que usuario no existe
+		# update_attribute(:activado, true)
+		# update_attribute(:activado_en, Time.zone.now)
+	end
+
+	# Envia el mail de activacion
+	# Usado en:
+	# 	usuarios#create
+	def enviar_email_activacion
+    CorreoDeUsuarioMailer.activacion_usuarios(self).deliver_now
+	end
+	# Fin 11.3.3
+
+	private
+
+		def email_en_minusculas
+			email.downcase! # == (self.email = email.downcase) 
+		end
+
+		def crear_activacion_digest
+			self.token_activacion = Usuario.nuevo_token
+			self.activacion_digest = Usuario.digestion(token_activacion)
+		end
+
 end
+
+
+# Antiguo autentificado? 
+
+	# Capitulo 9.1.2 - Acceder con recuerda
+	# Metodo que hace la función de authenticate de has_secure_password
+	# Metodo que desencripta la id de la cookie y la compara con :recuerda_digest
+	# Devuelve true si el token coincide con el digest
+	# Usado en SesionesHelper#usuario_actual
+	#def autentificado?(token_recuerda) 	### authenticated? ###
+		
+		# Cap 11.3.1
+		# Primer paso: Inclusion de send
+		# digestion = self.send("recuerda_digest")
+		# return false if digestion.nil?
+		# BCrypt::Password.new(digestion).is_password?(token_recuerda)
+
+	# Anulado por 11.3.1 - refactorizando autentificado?	
+		# Cap 9.1.4 - Bug Sutil 2 (desde test de modelo usuario)
+		# 	Solucion: Devuelve false si el digest es nil
+		#return false if recuerda_digest.nil?
+		
+		# token_recuerda es una variable local del método y no el accessor
+		## Nota: token_recuerda está Hashed, no encriptado
+		# el atributo recuerda_digest es el mismo de self.recuerda_digest
+		#BCrypt::Password.new(recuerda_digest).is_password?(token_recuerda)
+	#end

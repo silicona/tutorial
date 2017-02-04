@@ -64,10 +64,15 @@ module SesionesHelper
 			# Variable local para trabajar en el método
 			usuario = Usuario.find_by( id: usuario_id)
 			
+			# Cap 11.3.1 - Actualizacion de autentificado?
+			# Desde modelo Usuario.rb
+			if usuario && usuario.autentificado?(:recuerda, cookies[:token_recuerda])
+
 			# Método autentificado? en modelo Usuarios.rb
 			## Cap 9.3.2 Ejercicio - test "usuario_actual devuelve nil cuando recuerda hace la digestión erroneo" do
 			## Falla si autentificado? está comentado
-			if usuario && usuario.autentificado?(cookies[:token_recuerda])
+			# Anulado por Cap 11.3.1
+			#if usuario && usuario.autentificado?(cookies[:token_recuerda])
 				
 				# Metodo más arriba
 				acceso_a usuario

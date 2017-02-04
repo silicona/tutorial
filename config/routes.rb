@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
-
+  
+  root 'paginas_estaticas#inicio'
+  # root original del tutorial
+  #root :to => "application#saludo"
 
   # Anulado por gets hacia Controlador páginas_estáticas
   # get 'paginas_estaticas/inicio'
@@ -49,8 +52,8 @@ Rails.application.routes.draw do
 # PUT    /usuarios/:id(.:for)   usuario_path(usuario)  usuarios#update
 # DELETE /usuarios/:id(.:for)   usuario_path(usuario)  usuarios#destroy
   
-  root 'paginas_estaticas#inicio'
-  # root original del tutorial
-  #root :to => "application#saludo"
+# Capitulo 11.1 Activacion de usuarios
+  resources :activacion_usuarios, only: [:edit]  
+
 
 end
