@@ -1,11 +1,11 @@
 class Usuario < ApplicationRecord
 
-	# Capitulo 9
+	# Capitulo 9, 11, 12
 	# Accessor para emular a has_secure_password
 	# Utilizado en metodo recuerda, más abajo
 	##  Los accesores crean atributos virtuales, que no se guardan en la db.
 	##  	Sus asociados son los *_digest, hasheados
-	attr_accessor :token_recuerda, :token_activacion
+	attr_accessor :token_recuerda, :token_activacion, :token_reseteo
 
 	# Capitulo 6
 	# Despues de hacer el test de test/models/usuario_test.rb
@@ -134,12 +134,44 @@ class Usuario < ApplicationRecord
 	end
 	# Fin 11.3.3
 
+	# Cap 12.1.3
+	# Establece los atributos del reseteo de password
+	def crear_reseteo_digest
+		self.token_reseteo = Usuario.nuevo_token
+		update_columns(
+			reseteo_digest: Usuario.digestion(token_reseteo),
+			reseteo_enviado_en: Time.zone.now
+			)
+
+		# update_attribute(:reseteo_digest, Usuario.digestion(token_reseteo))
+		# update_attribute(:reseteo_enviado_en, Time.zone.now)
+	end
+
+	# Envia el mail con las instrucciones del reseteo de password
+	def enviar_email_reseteo
+		CorreoDeUsuarioMailer.reseteo_password(self).deliver_now
+	end
+	# Fin 12.1.3
+
+	# Cap 12.3.2 Expiracion del reseteo de pasword
+	# Devuelve true si reseteo_password ha expirado
+	# Usado en:
+	# 	ReseteoPasswords#comprobar_expiracion
+	def reseteo_password_expirado?
+
+		# Leer "antes de" en vez de "menos que"
+		reseteo_enviado_en < 2.hours.ago
+	end
+
+
 	private
 
+		# Convierte el email a minúsculas
 		def email_en_minusculas
 			email.downcase! # == (self.email = email.downcase) 
 		end
 
+		# Crea y asigna el token_activacion y activacion_digest
 		def crear_activacion_digest
 			self.token_activacion = Usuario.nuevo_token
 			self.activacion_digest = Usuario.digestion(token_activacion)

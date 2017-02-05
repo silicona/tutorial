@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
-  
+  # Creadas por Rails. Anuladas por Cap 12.1
+  # get 'reseteo_passwords/new'
+  # get 'reseteo_passwords/edit'
+
   root 'paginas_estaticas#inicio'
   # root original del tutorial
   #root :to => "application#saludo"
@@ -54,6 +57,9 @@ Rails.application.routes.draw do
   
 # Capitulo 11.1 Activacion de usuarios
   resources :activacion_usuarios, only: [:edit]  
+
+# Capitulo 12.1 Reseteo de passwords
+  resources :reseteo_passwords, only: [:new, :create, :edit, :update]
 
 
 end

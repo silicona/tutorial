@@ -17,6 +17,9 @@
 			<%= f.email_field :email, class: 'form_control'%>
 
 			<%= f.label :password %>
+			<!-- Cap 12.1 reseteo de passwords -->
+			<%= enlace_a "¿Has olvidado la contraseña?", new_reseteo_password_path %>
+			
 			<%= f.password_field :password, class: 'form_control' %>
 
 			<!-- Capitulo 9.2 - Recuerda_me para sesiones persistentes -->

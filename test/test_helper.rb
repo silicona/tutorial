@@ -28,6 +28,7 @@ class ActiveSupport::TestCase
   # 	confusion.
   # Usado en:
   #   ?
+  #   reseteo_passwords_test.rb
   def esta_identificada? # is_logged_in?
   	!session[:usuario_id].nil?
   end

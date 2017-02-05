@@ -19,9 +19,12 @@ class CorreoDeUsuarioMailer < ApplicationMailer
   #
   #   en.correo_de_usuario_mailer.reseteo_password.subject
   #
-  def reseteo_password
+  
+  def reseteo_password(usuario)
+    @usuario = usuario
+    mail to: usuario.email, subject: "Restablecer la contraseña"
 
-    @greeting = "Hi"
-    mail to: "to@example.org"
+    # @greeting = "Hi"
+    # mail to: "to@example.org"
   end
 end
