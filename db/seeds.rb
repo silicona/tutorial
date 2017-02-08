@@ -30,8 +30,10 @@ Usuario.create!(
 )
 
 # Uso de faker para crear a la Legion de Condenadas
+# https://github.com/stympy/faker
+# Cuidado con la customizacion de Faker
 99.times do |n|
-	nombre = Faker::Name.name
+	nombre = Faker::GameOfThrones.character
 	email = "faker-#{ n + 1 }@tutorialrails.com"
 	password = "password"
 	Usuario.create!(
@@ -42,4 +44,12 @@ Usuario.create!(
 		activado: true,
 		activado_en: Time.zone.now
 	)
+end
+
+# Cap 13.2.2 - Ejemplos de publicaciones
+usuarios = Usuario.order(:created_at).take(2)
+50.times do
+	contenido = Faker::ChuckNorris.fact
+	#contenido = Faker::Lorem.sentence(5)
+	usuarios.each { |usuario| usuario.publicaciones.create!(contenido: contenido) }
 end

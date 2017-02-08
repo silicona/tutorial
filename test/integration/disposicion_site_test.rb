@@ -3,9 +3,8 @@ require 'test_helper'
 class DisposicionSiteTest < ActionDispatch::IntegrationTest
 
 	setup do
-		@texto = "Esta es la página de Inicio del Tutorial Rails de Learn Enough.
-  	
-  	¿O pensabas que lo había hecho yo todo?"
+		# Modificado por problemas con la indentacion.
+		@texto = "Esta es la página de Inicio del Tutorial Rails de Learn Enough."
 
   	@leonor = usuarios(:leonor)
   end
@@ -24,8 +23,7 @@ class DisposicionSiteTest < ActionDispatch::IntegrationTest
 		# Probar las etiquetas que no se espera que cambien
 
 		get root_path
-		assert_select "div", count: 4
-		assert_select "div", text: "foobar"
+		assert_select "div", count: 3
 		# Clases CSS
 		assert_select	"div.container"
 		assert_select "ul.nav.navbar-nav.navbar-right"

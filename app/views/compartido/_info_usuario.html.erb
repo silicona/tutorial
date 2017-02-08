@@ -1,0 +1,4 @@
+<%= enlace_a para_gravatar(usuario_actual, medida: 50), usuario_actual %>
+<h1><%= usuario_actual.nombre %></h1>
+<span><%= enlace_a "Ver mi perfíl", usuario_actual %></span>
+<span><%= pluralize(usuario_actual.publicaciones.count, "publicacion") %></span>

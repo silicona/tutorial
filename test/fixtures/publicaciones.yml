@@ -1,0 +1,57 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+# Cap 13.1.4
+
+naranja:
+  contenido: "Me he comido una naranja!"
+  created_at: <%= 10.minutes.ago %>
+  
+  # Cap 13.2.3 - Se añade el usuario a la publicacion
+  usuario: leonor
+
+manifiesto-tau:
+  contenido: "Visita la web @tauday por @mhartl: http://tauday.com"
+  created_at: <%= 3.years.ago %>
+  usuario: leonor
+
+
+video_gatuno:
+  contenido: "Los gatos son tristes: http://youtu.be/PKffm2uI4dk"
+  created_at: <%= 2.hours.ago %>
+  usuario: leonor
+
+mas_reciente:
+  contenido: "Escribiendo un pequeño texto."
+  created_at: <%= Time.zone.now %>
+  usuario: leonor
+
+# Cap 13.2.3 - Generacion de publicaciones para Paginate
+<% 30.times do |n| %>
+publicacion_<%= n %>:
+  contenido: <%= Faker::Lorem.sentence(5) %>
+  # Provoca error en perfil_usuarios_test
+  #contenido: <%= Faker::ChuckNorris.fact %>
+  created_at: <%= 42.days.ago %>
+  usuario: leonor
+<% end %>
+
+# Cap 13.3.5 - Test de control de publicaciones
+hormigas:
+  contenido: "Oh, eso es lo que quieres? No juegues con cerillas."
+  created_at: <%= 2.years.ago %>
+  usuario: lucrecia
+
+zona:
+  contenido: "Zona de peligro. Corre o se te llevará el alma!!"
+  created_at: <%= 3.days.ago %>
+  usuario: lucrecia
+
+tono:
+  contenido: "NIAAAgghljjjoeeeoo... chluuuummp. ¡Máldita mandíbula, que mal se sujeta!"
+  created_at: <%= 10.minutes.ago %>
+  usuario: paco
+
+furgoneta:
+  contenido: "Compa, yo me alimento de cerebros. Mi coche funebre, de cadáveres."
+  created_at: <%= 4.hours.ago %>
+  usuario: paco

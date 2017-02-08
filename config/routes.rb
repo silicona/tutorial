@@ -61,5 +61,7 @@ Rails.application.routes.draw do
 # Capitulo 12.1 Reseteo de passwords
   resources :reseteo_passwords, only: [:new, :create, :edit, :update]
 
+# Capitulo 13.3
+  resources :publicaciones, only: [:create, :destroy]
 
 end

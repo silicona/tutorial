@@ -11,7 +11,7 @@
         7.3/10.1 Mensajes de error en el registro
     Aparecen al volver a la vista new/edit tras fallar @usuario.save en usuarios#create 
   -->
-  <%= render 'compartido/mensajes_de_error', object: @usuario %>
+  <%= render 'compartido/mensajes_de_error', objeto: f.object %>
 
   <%= f.label :nombre %>
   <%= f.text_field :nombre, class: 'form-control' %>

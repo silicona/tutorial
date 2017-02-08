@@ -170,6 +170,16 @@ class UsuarioTest < ActiveSupport::TestCase
 		assert_not @leonor.autentificado?(:recuerda, '')
 	end
 
+	# Cap 13.1.4
+	# Test para has_many :publicaciones, dependent: :destroy
+	# 	Error: "Publicacion.count" didn't change by -1.
+	test "Las publis asociadas deberían ser destruidas" do
+		@leonor.save
+		@leonor.publicaciones.create!(contenido: "Lorem ipsum")
+		assert_difference 'Publicacion.count', -1 do
+			@leonor.destroy
+		end
+	end
 end
 
 	

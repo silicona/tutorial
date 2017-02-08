@@ -1,0 +1,25 @@
+<li id="publicacion-<%= publicacion.id %>">
+  <%= enlace_a para_gravatar(publicacion.usuario, medida: 50), publicacion.usuario %>
+  <span class="usuario">
+  	<%= link_to publicacion.usuario.nombre, publicacion.usuario %>
+  </span>
+  <span class="contenido">
+  	<%= publicacion.contenido %>
+
+    <!-- Cap 13.4.1 - Renderizar la imagen subida con Carrierwave.
+      Método imagen? creado por Carrierwave, en base al atributo del modelo -->
+    <%= image_tag publicacion.imagen.url if publicacion.imagen? %>
+  </span>
+  <span class="fecha_publicacion">
+    
+    <!-- Ayudante tiempo_atras... en helpers/application_helper.rb -->
+    Publicado hace <%= tiempo_atras_en_palabras(publicacion.created_at) %>.
+    
+    <!-- Cap 13.3.4 - Borrar publicaciones -->
+    <% if usuario_actual?(publicacion.usuario) %>
+      <%= enlace_a "Borrar", publicacion, method: :delete,
+                                          data: {confirm: "Estás segura?"} %>
+    <% end %>
+  </span>
+
+</li>

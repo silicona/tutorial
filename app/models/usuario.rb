@@ -1,5 +1,8 @@
 class Usuario < ApplicationRecord
 
+	# Cap 13.1.4 - Test en usuario_test.rb
+	has_many :publicaciones, dependent: :destroy
+
 	# Capitulo 9, 11, 12
 	# Accessor para emular a has_secure_password
 	# Utilizado en metodo recuerda, más abajo
@@ -163,6 +166,13 @@ class Usuario < ApplicationRecord
 		reseteo_enviado_en < 2.hours.ago
 	end
 
+	# Cap 13.3.3
+	# Define un proto-suministro. Se completa en Cap 14
+	def suministrar 	### feed ###
+
+		# Para evitar un SQL Injection, se "escapa" id antes de incluirlo
+		Publicacion.where("usuario_id = ?", id)
+	end
 
 	private
 

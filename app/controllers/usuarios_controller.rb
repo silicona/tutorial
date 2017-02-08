@@ -4,6 +4,7 @@ class UsuariosController < ApplicationController
   # Cap 10.4.3 - Se añade :destroy a :usuario_accedido
   #   Solución simple de test/controllers/usuario_controller_test.rb
   #     test "Redirige Destroy si no hay no acceso"
+  # Cap 13.3.1 - Método usuario_accedido en Helpers/application_helper.rb
   before_action :usuario_accedido, only: [:index, :edit, :update, :destroy]
   before_action :usuario_correcto, only: [:edit, :update]
   before_action :usuario_admin, only: :destroy
@@ -23,6 +24,9 @@ class UsuariosController < ApplicationController
 	# Capitulo 7 - comienzo de REST
 	def show
 		@usuario = Usuario.find(params[:id])
+
+    # Cap 13.2.1
+    @publicaciones = @usuario.publicaciones.paginate(page: params[:page])
 
     # Cap 11.3.3 - Usuarios no activados
 		redirect_to root_url and return unless :activacion
@@ -120,20 +124,19 @@ class UsuariosController < ApplicationController
   														:password_confirmation )
   	end
 
+    ## Filtros Before_action
+
     # Cap 10.2.1 - Filtro contra anónimos
-    def usuario_accedido
-      unless ha_accedido?
-        # Metodo de SesionesHelper
-        guardar_url
-        flash[:danger] = "Por favor, accede con tu usuaria"
-        redirect_to acceder_url
-      end
-    end
+    # Confirma que un usuario ha accedido
+    # def usuario_accedido  ### logged_in_user ###
+    # Cap 13.3.1 - Metodo en helpers/application_helper.rb
+    # ¿Porque es mala idea dejarlo?¿Solo factorizacion?
+
 
     # Cap 10.2.2 - Filtro contra otro usuario
     def usuario_correcto
       @usuario = Usuario.find(params[:id])
-      flash[:peligro] = "Esa página no es tuya, bribona"
+      #flash[:danger] = "Esa página no es tuya, bribona" ## Y esto?
       # metodo usuario_actual? en SesionesHelper
       redirect_to(root_url) unless usuario_actual?(@usuario)
     end

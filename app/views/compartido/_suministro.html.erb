@@ -1,0 +1,8 @@
+<% if @objetos_suministro.any? %>
+	<ol class="publicaciones">
+		<!-- Rails busca el parcial en views/publicaciones al detectar que son
+			objetos de clase Publicacion -->
+		<%= render @objetos_suministro %>
+	</ol>
+	<%= will_paginate @objetos_suministro %>
+<% end %>

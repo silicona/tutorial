@@ -27,5 +27,11 @@ module ApplicationHelper
   def enlace_a(nombre, url, ops = {})
     link_to(nombre, url, ops)
   end
+
+  # Ayundante para app/views/publicaciones/_publicacion.html.erb
+  def tiempo_atras_en_palabras(tiempo_atras, opciones = {}) 
+    time_ago_in_words(tiempo_atras, opciones = {})
+  end
+
 end
 

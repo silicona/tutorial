@@ -3,7 +3,11 @@ any? devuelve V/F si hay algun error en @usuario.
 any? y empty? son antagónicos
 @usuario viene del error en @usuario.save en usuarios#create
 -->
-<% if @usuario.errors.any? %>
+
+<!-- Cap 13.3.2 - Publicacion en Inicio con acceso
+  Sustitucion de @usuario por :objeto -->
+<% if objeto.errors.any? %>
+<%# if @usuario.errors.any? %>
   <!-- 
       CSS en estilos.scss
     Rails incorpora a los mensajes la clase CSS field_with_errors.
@@ -19,13 +23,15 @@ any? y empty? son antagónicos
         correspondiente palabra segun su numero (singular o plural)
       plural: anula el inflector de pluralize (ingles, por defecto)
       -->
-      El registro contiene <%= pluralize(@usuario.errors.count, "error", plural: "errores") %>.
+      El registro contiene <%= pluralize(objeto.errors.count, "error", plural: "errores") %>.
+      <%# pluralize(@usuario.errors.count, "error", plural: "errores") %>
       <!-- El mensaje duplicado password cant be blank sera eliminado
         en el capitulo 10, con allow_nil: true -->
     </div>
     
     <ul id="mensajes">
-      <% @usuario.errors.full_messages.each do |msg| %>
+      <% objeto.errors.full_messages.each do |msg| %>
+      <%# @usuario.errors.full_messages.each do |msg| %>
         <li id="errores"><%= msg %></li>
       <% end %>
     </ul>

@@ -1,0 +1,33 @@
+<!-- Cap 13.4.1
+	Añadir file_field para subida de archivo.
+	html: {multipart: true} necesario para la subida -->
+<%# form_for(@publicacion) do |f| %>
+<%= form_for(@publicacion, html: {multipart: true}) do |f| %>
+	<!-- Modificacion del parcial para incluir :objeto -->
+	<%= render 'compartido/mensajes_de_error', objeto: f.object %>
+	<div class="field">
+		<%= f.text_area :contenido, placeholder: "Haz una nueva publicación..." %>
+	</div>
+	<%= f.submit "Publicar", class: "btn btn-primary" %>
+	
+	<!-- Cap 13.4.1 -->
+	<span class="imagen">
+		
+		<!-- Cap 13.4.2 -->
+		<!-- Refleja la validacion del formato desde image_uploader.rb --> 
+		<%= f.file_field :imagen, accept: 'imagen/jpeg,imagen/gif,imagen/png' %>
+		<%# f.file_field :imagen %>
+	</span>
+<% end %>
+
+<!-- JQuery Validacion de imagen del lado del cliente (navegador)
+	Esta validacion no impide que un usuario suba un archivo mayor a 5Mb si se
+	lo propone, editando el JQuery y enviando un POST con curl. -->
+<script type="text/javascript">
+	$('#publicacion_imagen').bind('change', function() {
+		var medida_en_megabytes = this.files[0].size/1024/1024;
+		if (medida_en_megabytes > 5) {
+			alert('El tamaño máximo del archivo es 5Mb. Por favor, escoge un archivo más pequeño.');
+		}
+	});
+	</script>

@@ -9,12 +9,25 @@ end
 # Con bundle --without production
 
 gem 'rails',        '5.0.1'
+
 # Añadida en capitulo 6, para encriptar la password del usuario
 gem 'bcrypt',       '3.1.11'
+
 # Añadida para Cap 10.3.2 - Usuarios de muestra: Crea usuarios falsos
 gem 'faker',        '1.6.6'
+
+# Para Cap 13.4.1 - Subir imagen y asociarla con un modelo ActiveRecord
+gem 'carrierwave', '0.11.2'
+
+# Para Cap 13.4.3 - Redimensionar la imagen
+gem 'mini_magick',  '4.5.1'
+
+# Para Cap 13.4.4 - Subir imagen en producción
+gem 'fog',          '1.38.0' 
+
 # Añadida Cap 10.3.3 Paginacion de usuarios
 gem 'will_paginate', '3.1.0'
+
 # Añadida en Capitulo 5, para lo obvio...
 gem 'bootstrap-sass',    '3.3.6'
 gem 'puma',         '3.4.0'

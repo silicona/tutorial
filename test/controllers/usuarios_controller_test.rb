@@ -33,11 +33,10 @@ class UsuariosControllerTest < ActionDispatch::IntegrationTest
   	acceso_como(@lucrecia)
   	get edit_usuario_path(@leonor)
 
+    # Mal invertido - flash eliminado
     # invertido por flash en usuarios#usuario_correcto
-  	assert_not flash[:peligro].empty?
-    assert_nil flash[:danger]
-    #assert flash.empty?  ## original del tutorial
-  	
+    assert flash.empty? ## original del tutorial
+    
     assert_redirected_to root_url
   end
 
@@ -48,10 +47,9 @@ class UsuariosControllerTest < ActionDispatch::IntegrationTest
   	patch usuario_path(@leonor), params: { usuario: {nombre: @leonor.nombre,
   																									 email: @leonor.email } }
     
+    # Mal invertido - flash eliminado
     # invertido por flash en usuarios#usuario_correcto
-    assert_not flash[:peligro].empty?
-    assert_nil flash[:danger]  
-    #assert flash.empty? ## original del tutorial
+    assert flash.empty? ## original del tutorial
   	
     assert_redirected_to root_url
   end

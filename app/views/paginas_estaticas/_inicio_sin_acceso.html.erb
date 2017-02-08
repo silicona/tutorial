@@ -1,0 +1,27 @@
+  <!-- Inicio sin acceso -->
+  <div class="izquierda jumbotron">
+    <h1 id="Satan">Inicio Páginas Estáticas</h1>
+
+    <h2>Esta es la página de Inicio del Tutorial Rails de Learn Enough.</h2>
+    
+    <h3>¿O pensabas que lo había hecho yo todo?</h3>
+  
+    <p>Bueno, una parte sí...</p>
+
+    <h3>Dejaremos el link por el que dirán...</h3>
+
+    <p>
+      <a href="http://www.railstutorial.org/">
+        Tutoriales Learn Enough
+      </a>
+    </p>
+    
+    <%= link_to "Registrate YA!", registro_path, class: "btn btn-lg btn-primary" %>
+  </div>
+
+  <%= link_to image_tag("Yog-Sothoth.jpg", alt: "Logo de aquí", size: "150x150"),
+    'http://blogs.gamefilia.com/geralddurden/31-03-2013/52538/dioses-exteriores-primigenios-yog-sothoth', target: "_blank" %>
+  <%= image_tag "gato.jpg", alt: "Lindo gatito" %>
+
+  <p nombre="copyleft">La imagen del jodido gato, vale?</p>
+  <!-- Fin Inicio sin acceso -->

@@ -12,6 +12,16 @@ class PaginasEstaticasController < ApplicationController
 	# 	https://github.com/thoughtbot/high_voltage
 	
   def inicio
+
+  	#Cap 13.3.3 - Introduccion de @objetos_suministro
+  	if ha_accedido?
+  		@publicacion = usuario_actual.publicaciones.build
+  		@objetos_suministro = usuario_actual.suministrar.paginate( page: params[:page] )
+  	end
+
+  	# Cap 13.3.2 - Anulado por 13.3.3
+  	#@publicaciones = usuario_actual.publicaciones.build if ha_accedido?
+
   end
 
   def ayuda
