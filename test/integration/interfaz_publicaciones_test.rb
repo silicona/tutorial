@@ -31,7 +31,7 @@ class InterfazPublicacionesTest < ActionDispatch::IntegrationTest
 		# Carga de imagenes desde test/fixtures/
 		# MIME correcto? - Test verde
 		#imagen = fixture_file_upload('test/fixtures/vaca.jpeg', 'image/jpeg')
-		imagen = fixture_file_upload('test/fixtures/Cthulhu_constitucion.jpg', 'image/jpg')
+		imagen = fixture_file_upload('test/fixtures/Cthulhu_constitucion.jpg', 'image/jpg', :binary)
 		assert_difference 'Publicacion.count', 1 do
 			post publicaciones_path, params: { publicacion: { contenido: contenido, imagen: imagen } }
 		end

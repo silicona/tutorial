@@ -24,3 +24,6 @@
 # Ignore Spring files.
 # Ignorar directorio spring en Git.
 /spring/*.pid
+
+# Ignorar directorio de subida de imagenes
+/public/uploads
