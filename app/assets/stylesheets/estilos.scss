@@ -49,9 +49,10 @@ $gris_media_luz: #eaeaea;
 
 /* fin de CSS 1 */
 
-// CSS 7.1.4 gravatar y barra lateral
+// Barra lateral y Gravatar
 /* sidebar - Barra lateral */
 
+/* CSS 7.1.4 */
 aside {
   section.user_info {
     margin-top: 20px;
@@ -87,8 +88,48 @@ aside {
 .gravatar_edit {
   margin-top: 15px;
 }
-
 /* fin de CSS 7.1.4 */
+
+/* CSS 14.2.2 Listing 14.18 */
+.estadisticas {
+  overflow: auto;
+  margin-top: 0;
+  padding: 0;
+  a {
+    float: left;
+    padding: 0 10px;
+    border-left: 1px solid $gray-lighter;
+    color: gray;
+    &:first-child {
+      padding-left: 0;
+      border: 0;
+    }
+    &:hover {
+      text-decoration: none;
+      color: blue;
+    }
+  }
+  strong {
+    display: block;
+  }
+}
+
+.usuario_avatars {
+  overflow: auto;
+  margin-top: 10px;
+  .gravatar {
+    margin: 1px 1px;
+  }
+  a {
+    padding: 0;
+  }
+}
+
+/* clase usuarias más abajo */
+.usuarias.seguir {
+  padding: 0;
+}
+/* Fin de CSS 14.2.2 */
 
 // Formularios - Forms
 /* CSS 7.2 */

@@ -1,0 +1,23 @@
+<!-- Cap 14.2.2
+	Al incluir este parcial en el perfil y en inicio, la primera linea 
+	se asegura de que @usuario no sea nil (como al venir desde Inicio) -->
+<% @usuario ||= usuario_actual %>
+<div class="estadisticas">
+	<a href="<%= siguiendo_usuario_path(@usuario) %>">
+		<!-- Ajax accese a elementos CSS por la id -->
+		<strong id="siguiendo" class="estadisticas">
+			<!-- Calculo de siguiendo a través de la asociación -->
+			<%= @usuario.siguiendo.count %>
+		</strong>
+		Siguiendo
+	</a>
+
+	<a href="<%= seguidores_usuario_path(@usuario) %>">
+		<!-- Ajax accese a elementos CSS por la id -->
+		<strong id="seguidores" class="estadisticas">
+			<!-- Calculo de seguidores a través de la asociación -->
+			<%= @usuario.seguidores.count %>
+		</strong>
+		Seguidores
+	</a>
+</div>

@@ -110,4 +110,18 @@ class UsuariosControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to root_url
   end
 
+  # Cap 14.2.3 - Paginas de seguidores y siguiendo
+  # Rutas nombradas en routes.rb
+  # Error -  AbstractController::ActionNotFound: The action 'siguiendo' could not be found for UsuariosController
+  test "debería redirigir Siguiendo si no hay acceso" do
+    get siguiendo_usuario_path(@leonor)
+    assert_redirected_to acceder_url
+  end
+
+  test "Debería redirigir Seguidores si no hay acceso" do
+    get seguidores_usuario_path(@leonor)
+    assert_redirected_to acceder_url
+  end
+
+
 end

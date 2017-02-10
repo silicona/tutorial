@@ -11,7 +11,7 @@
 
 # Ejemplo de usuario en seed
 Usuario.create!(
-	nombre: "Usuario ejemplar",
+	nombre: "Ejemplismo",
 	email: "example@railstutorial.org",
 	password: "password",
 	password_confirmation: "password",
@@ -23,6 +23,24 @@ Usuario.create!(
 Usuario.create!(
 	nombre: "Silicona",
 	email: "vertederonuclear@gmail.com",
+	password: "password",
+	password_confirmation: "password",
+	activado: true,
+	activado_en: Time.zone.now
+)
+
+Usuario.create!(
+	nombre: "La virgen de Fátima",
+	email: "railsprueba0@gmail.com",
+	password: "password",
+	password_confirmation: "password",
+	activado: true,
+	activado_en: Time.zone.now
+)
+
+Usuario.create!(
+	nombre: "Oso Yogi",
+	email: "railsprueba1@gmail.com",
 	password: "password",
 	password_confirmation: "password",
 	activado: true,
@@ -47,9 +65,18 @@ Usuario.create!(
 end
 
 # Cap 13.2.2 - Ejemplos de publicaciones
-usuarios = Usuario.order(:created_at).take(2)
+usuarios = Usuario.order(:created_at).take(4)
 50.times do
-	contenido = Faker::ChuckNorris.fact
+	contenido = Faker::ChuckNorris.fact 	# Todo por Chuck
 	#contenido = Faker::Lorem.sentence(5)
 	usuarios.each { |usuario| usuario.publicaciones.create!(contenido: contenido) }
 end
+
+# Cap 14.2.1 Muestras de siguiendo y seguidores
+usuarios = Usuario.all
+usuario = Usuario.first
+siguiendo = usuarios[2..50]
+seguidores = usuarios[3..40]
+
+siguiendo.each { |seguido| usuario.seguir(seguido) }
+seguidores.each { |seguidor| seguidor.seguir(usuario) }

@@ -1,0 +1,5 @@
+// Cap 14.2.5 - JS para actualizar _formulario_seguir sin refrescar la pagina
+// Punto y coma para terminar la linea, herencia ALGOL
+
+$("#formulario_seguir").html("<%= escape_javascript(render('usuarios/dejar_de_seguir')) %>");
+$("#seguidores").html('<%= @usuario.seguidores.count %>');

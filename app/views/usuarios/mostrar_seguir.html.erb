@@ -1,0 +1,30 @@
+<% provide(:titulo, @titulo) %>
+<div class="row">
+	<aside class="col-md-4">
+		<section class="info_usuario">
+			<%= para_gravatar @usuario %>
+			<h1><%= @usuario.nombre %></h1>
+			<span><%= enlace_a "Ver mi perfil", @usuario %></span>
+			<span><b>Publicaciones:</b> <%= @usuario.publicaciones.count %></span>
+		</section>
+		<section class="estadisticas">
+			<% render 'compartido/estadisticas' %>
+			<% if @usuarios.any? %>
+				<div class="usuario_avatars">
+					<% @usuarios.each do |usuario| %>
+						<%= enlace_a para_gravatar(usuario, medida: 30), usuario %>
+					<% end %>
+				</div>
+			<% end %>
+		</section>
+	</aside>
+	<div class="col-md-8">
+		<h3><%= @titulo %></h3>
+		<% if @usuarios.any? %>
+			<ul class="usuarias seguir">
+				<%= render @usuarios %>
+			</ul>
+			<%= will_paginate %>
+		<% end %>
+	</div>	
+</div>

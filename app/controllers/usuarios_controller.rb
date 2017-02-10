@@ -5,7 +5,10 @@ class UsuariosController < ApplicationController
   #   Solución simple de test/controllers/usuario_controller_test.rb
   #     test "Redirige Destroy si no hay no acceso"
   # Cap 13.3.1 - Método usuario_accedido en Helpers/application_helper.rb
-  before_action :usuario_accedido, only: [:index, :edit, :update, :destroy]
+  # Cap 14.2.3 - Añadido a usuario_accedido [:siguiendo, :seguidores] 
+  before_action :usuario_accedido, only: [:index, :edit, 
+                                          :update, :destroy,
+                                          :siguiendo, :seguidores]
   before_action :usuario_correcto, only: [:edit, :update]
   before_action :usuario_admin, only: :destroy
 
@@ -108,6 +111,22 @@ class UsuariosController < ApplicationController
     redirect_to usuarios_url
   end
 
+  # Cap 14.2.3 - Meodos para las páginas de siguiendo y seguidores
+  # Renderizado en: app/views/usuarios/mostrar_seguir.html.erb
+  def siguiendo
+    @titulo = "Siguiendo"
+    @usuario = Usuario.find(params[:id])
+    @usuarios = @usuario.siguiendo.paginate(page: params[:page])
+    render 'mostrar_seguir'
+  end
+
+  def seguidores
+    @titulo = "Seguidores"
+    @usuario = Usuario.find(params[:id])
+    @usuarios = @usuario.seguidores.paginate(page: params[:page])
+    render 'mostrar_seguir'
+  end
+  # Fin 14.2.3
 
   # Strong parameters
   # Asignacion masiva con profilaxis contra añadidos en la

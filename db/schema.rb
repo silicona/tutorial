@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170207201912) do
+ActiveRecord::Schema.define(version: 20170208155032) do
 
   create_table "publicaciones", force: :cascade do |t|
     t.text     "contenido"
@@ -20,6 +20,16 @@ ActiveRecord::Schema.define(version: 20170207201912) do
     t.string   "imagen"
     t.index ["usuario_id", "created_at"], name: "index_publicaciones_on_usuario_id_and_created_at"
     t.index ["usuario_id"], name: "index_publicaciones_on_usuario_id"
+  end
+
+  create_table "relaciones", force: :cascade do |t|
+    t.integer  "seguidor_id"
+    t.integer  "seguido_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.index ["seguido_id"], name: "index_relaciones_on_seguido_id"
+    t.index ["seguidor_id", "seguido_id"], name: "index_relaciones_on_seguidor_id_and_seguido_id", unique: true
+    t.index ["seguidor_id"], name: "index_relaciones_on_seguidor_id"
   end
 
   create_table "usuarios", force: :cascade do |t|

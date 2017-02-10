@@ -1,0 +1,9 @@
+<!-- Cap 14.2.2 -->
+<%# form_for(usuario_actual.relaciones_activas.build) do |f| %>
+
+<!-- Cap 14.2.5 - Implementando Ajax -->
+<%= form_for(usuario_actual.relaciones_activas.build, remote: true) do |f| %>
+	<!-- Llevamos seguido_id al controlador, con un input="hidden" -->
+	<div><%= hidden_field_tag :seguido_id, @usuario.id %></div>
+	<%= f.submit "Seguir", class: "btn btn-primary" %>
+<% end %>

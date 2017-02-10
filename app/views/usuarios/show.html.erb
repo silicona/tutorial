@@ -17,11 +17,23 @@
         <%= @usuario.nombre %>
       </h1>
     </section>
+
+    <!-- Estadisticas de seguidores y seguidos -->
+    <section class="estadisticas">
+      <%= render 'compartido/estadisticas' %>
+    </section>
+    <!-- Fin de Estadisticas -->
+
   </aside>
   <!-- Fin de datos de usuario -->
 
   <!-- Cap 13.2.1 - Publicaciones de usuario -->
   <div class="col-md-8">
+
+    <!-- Cap 14.2.2 - Botón Seguir - Dejar de seguir -->
+    <%= render 'formulario_seguir' if ha_accedido? %>
+    <!-- Fin Boton -->
+
     <% if @usuario.publicaciones.any? %>
       <h3>Publicaciones (<%= @usuario.publicaciones.count %>)</h3>
       <ol class="publicaciones">

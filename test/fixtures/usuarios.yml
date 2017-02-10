@@ -43,7 +43,7 @@ perico:
 <% 30.times do |n| %>
 usuario_<%= n %>:
   nombre: <%= "Usuario_#{n}" %>
-  email: <%= "usuario-#{n}" %>
+  email: <%= "usuario-#{n}@mail.net" %>
   password_digest: <%= Usuario.digestion('password') %>
   activado: true
   activado_en: <%= Time.zone.now %>

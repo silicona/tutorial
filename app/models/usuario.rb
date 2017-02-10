@@ -3,6 +3,34 @@ class Usuario < ApplicationRecord
 	# Cap 13.1.4 - Test en usuario_test.rb
 	has_many :publicaciones, dependent: :destroy
 
+	# Cap 14.1.2 - Asociando Usuario y Relacion
+	# problema: No reconoce el singular para los ejercicios?
+	# Seguimos con relaciones_activas (despues de inluirlo en inflections.rb)
+	has_many :relaciones_activas, class_name: "Relacion",
+																foreign_key: "seguidor_id",
+																dependent: :destroy
+
+	# Cap 14.1.5 - Seguidores
+	# Inverso a :relaciones_activas
+	has_many :relaciones_pasivas, class_name: "Relacion",
+																foreign_key: "seguido_id",
+																dependent: :destroy
+
+	# Cap 14.1.4 - Usuarios seguidos
+	# Crea el array siguiendo con los datos de seguido_id filtrados por
+	# 	:relaciones_activas, esto es, con la id del seguidor
+	# Rails hace singularize sobre :siguiendo. Si no encuentra un singular,
+	# 	utiliza :source
+	has_many :siguiendo, through: :relaciones_activas, 
+											 source: :seguido
+
+	# Cap 14.1.5 - Seguidores
+	# Inverso a :siguiendo
+	# No es necesario añadir "seguidor, seguidores" a inflections.rb, debido
+	# 	a :source
+	has_many :seguidores, through: :relaciones_pasivas,
+												source: :seguidor
+
 	# Capitulo 9, 11, 12
 	# Accessor para emular a has_secure_password
 	# Utilizado en metodo recuerda, más abajo
@@ -170,8 +198,45 @@ class Usuario < ApplicationRecord
 	# Define un proto-suministro. Se completa en Cap 14
 	def suministrar 	### feed ###
 
+		# 14.3.3 - Subseleccion
+		# Forma 3
+		ids_de_siguiendo = "SELECT seguido_id FROM relaciones
+										 WHERE seguidor_id = :usuario_id"
+		Publicacion.where("usuario_id IN (#{ids_de_siguiendo})
+											 OR usuario_id = :usuario_id", usuario_id: id)
+
+		# Forma 2 - Equivalente de 1
+		#Publicacion.where("usuario_id IN (:siguiendo_ids) OR usuario_id = :usuario_id",
+		#									siguiendo_ids: siguiendo_ids, usuario_id: id)
+
+		# Cap 14.3.2 - Suministro del Muro (Status Feed)
+		# Forma 1
+		#Publicacion.where("usuario_id IN (?) OR usuario_id = ?", siguiendo_ids, id)
+
+		## 14.3.2 - Ejercicio sobre Forma 1
+		# 1 - Publicacion.where("usuario_id = ?", id)
+		# 2 - Publicacion.where("usuario_id IN (?)", siguiendo_ids)
+		# 3 - Publicacion.all
+
 		# Para evitar un SQL Injection, se "escapa" id antes de incluirlo
-		Publicacion.where("usuario_id = ?", id)
+		#Publicacion.where("usuario_id = ?", id)
+	end
+
+	# Cap 14.1.4 - Siguiendo a usuarios
+	# Se omite self todo lo que se puede
+	# Sigue a un usuaria
+	def seguir(otro_usuaria)
+		siguiendo << otro_usuaria
+	end
+
+	# Deja de seguir a una usuaria
+	def dejar_de_seguir(otra_usuaria)
+		siguiendo.delete(otra_usuaria)
+	end
+
+	# True si la usuaria actual esta siguiendo a otra_usuaria
+	def siguiendo?(otra_usuaria)
+		siguiendo.include?(otra_usuaria)
 	end
 
 	private

@@ -1,0 +1,10 @@
+<!-- Cap 14.2.2 -->
+<% unless usuario_actual?(@usuario) %>
+	<div id="formulario_seguir">
+		<% if usuario_actual.siguiendo?(@usuario) %>
+			<%= render 'dejar_de_seguir' %>
+		<% else %>
+			<%= render 'seguir' %>
+		<% end %>
+	</div>
+<% end %>

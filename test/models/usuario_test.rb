@@ -180,9 +180,52 @@ class UsuarioTest < ActiveSupport::TestCase
 			@leonor.destroy
 		end
 	end
-end
 
-	
+	# Cap 14.1.4 - Test de Seguir y Dejar de seguir usuarios
+	# Escritos antes del codigo
+	# Los métodos se escriben en modelo Usuario
+	test "Debería seguir y dejar de seguir a un usuario" do
+		leonor = usuarios(:leonor)
+		anonimo = usuarios(:usuario_1)
+		# Error -  undefined method `siguiendo?' for #<Usuario:...
+		assert_not leonor.siguiendo?(anonimo)
+
+		# Error -  undefined method `seguir' for #<Usuario:...
+		leonor.seguir(anonimo)
+		assert leonor.siguiendo?(anonimo)
+
+		## Test de seguidores
+		assert anonimo.seguidores.include?(leonor)
+
+		# Error -  undefined method `dejar_de_seguir' for #<Usuario:...
+		leonor.dejar_de_seguir(anonimo)
+		assert_not leonor.siguiendo?(anonimo)
+	end
+
+	# Cap 14.3 - Muro - Status Feed
+  # Escrito antes del codigo en modelo Usuarios#suministrar
+  # Se combinan fixtures/usuarios y fixtures/relaciones
+  test "El muro debería tener las publis correctas" do
+    leonor = usuarios(:leonor)
+    lucrecia = usuarios :lucrecia
+    paco = usuarios :paco
+
+    # Publicaciones desde usuario seguido
+    paco.publicaciones.each do |publicacion_seguida| ## post_following
+      assert leonor.suministrar.include?(publicacion_seguida)
+    end
+
+    # Publicaciones desde la propia usuaria
+    leonor.publicaciones.each do |publicacion_propia|  ## post_self
+      assert leonor.suministrar.include?(publicacion_propia)
+    end
+
+    # Publicaciones desde un usuario NO seguido
+    lucrecia.publicaciones.each do |publicacion_no_seguida|  ## post_unfollowed
+      assert_not leonor.suministrar.include?(publicacion_no_seguida)
+    end
+  end
+end
 
 
 # # Expresiones regulares - ejemplos

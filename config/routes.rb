@@ -43,17 +43,18 @@ Rails.application.routes.draw do
   post '/acceder', to: 'sesiones#create'
   delete '/cerrar', to: 'sesiones#destroy'
   
-# Capitulo 7
-  resources :usuarios
-# via $ rake routes
-# GET    /usuarios(.:format)    usuarios_path          usuarios#index
-# POST   /usuarios(.:format)                           usuarios#create
-# GET    /usuarios/new(.:for)   new_usuario_path       usuarios#new
-# GET    /usuarios/:id/edit(.:for) edit_usuario_path(usuario) usuarios#edit
-# GET    /usuarios/:id(.:for)   usuario_path(usuario)  usuarios#show
-# PATCH  /usuarios/:id(.:for)   usuario_path(usuario)  usuarios#update
-# PUT    /usuarios/:id(.:for)   usuario_path(usuario)  usuarios#update
-# DELETE /usuarios/:id(.:for)   usuario_path(usuario)  usuarios#destroy
+# Capitulo 7 / Cap 14.2.2 - do member
+  resources :usuarios do
+    # Cap 14.2 - Member preferido a Collection
+    member do
+      get :siguiendo, :seguidores
+    end
+
+    # collection do
+    #   get :siguiendo, :seguidores
+    # end
+  end
+
   
 # Capitulo 11.1 Activacion de usuarios
   resources :activacion_usuarios, only: [:edit]  
@@ -64,4 +65,32 @@ Rails.application.routes.draw do
 # Capitulo 13.3
   resources :publicaciones, only: [:create, :destroy]
 
+# Capitulo 14.2.2
+  resources :relaciones, only: [:create, :destroy]
+
 end
+
+# Cap 7 resources :usuarios
+# via $ rake routes
+# GET    /usuarios(.:format)    usuarios_path          usuarios#index
+# POST   /usuarios(.:format)                           usuarios#create
+# GET    /usuarios/new(.:for)   new_usuario_path       usuarios#new
+# GET    /usuarios/:id/edit(.:for) edit_usuario_path(usuario) usuarios#edit
+# GET    /usuarios/:id(.:for)   usuario_path(usuario)  usuarios#show
+# PATCH  /usuarios/:id(.:for)   usuario_path(usuario)  usuarios#update
+# PUT    /usuarios/:id(.:for)   usuario_path(usuario)  usuarios#update
+# DELETE /usuarios/:id(.:for)   usuario_path(usuario)  usuarios#destroy
+
+# Cap 14.2 resources :usuarios do member
+# via $ rake routes
+# ...
+#  siguiendo_usuario GET /usuarios/:id/siguiendo(.:format)  usuarios#siguiendo
+# seguidores_usuario GET /usuarios/:id/seguidores(.:format) usuarios#seguidores
+#           usuarios GET /usuarios(.:format)                usuarios#index
+#                   POST /usuarios(.:format)                usuarios#create
+#        new_usuario GET /usuarios/new(.:format)            usuarios#new
+# ...
+
+# Con collection - No usado
+#  siguiendo_usuarios GET /usuarios/siguiendo(.:format)  usuarios#siguiendo
+# seguidores_usuarios GET /usuarios/seguidores(.:format) usuarios#seguidores

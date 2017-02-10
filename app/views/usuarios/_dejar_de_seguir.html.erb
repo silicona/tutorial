@@ -1,0 +1,7 @@
+<!-- Cap 14.2.2 -->
+<%# form_for(usuario_actual.relaciones_activas.find_by(seguido_id: @usuario.id), html: { method: :delete} ) do |f| %>
+
+<!-- Cap 14.2.5 - Implementando Ajax -->
+<%= form_for(usuario_actual.relaciones_activas.find_by(seguido_id: @usuario.id), html: { method: :delete}, remote: true ) do |f| %>
+	<%= f.submit "Dejar de seguir", class: "btn" %>
+<% end %>
